@@ -29,14 +29,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author sofia
  */
 @Entity
-@Table(name = "role")
+@Table(name = "class")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
-    , @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id")
-    , @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
-    , @NamedQuery(name = "Role.findByIsdelete", query = "SELECT r FROM Role r WHERE r.isdelete = :isdelete")})
-public class Role implements Serializable {
+    @NamedQuery(name = "Class.findAll", query = "SELECT c FROM Class c")
+    , @NamedQuery(name = "Class.findById", query = "SELECT c FROM Class c WHERE c.id = :id")
+    , @NamedQuery(name = "Class.findByName", query = "SELECT c FROM Class c WHERE c.name = :name")
+    , @NamedQuery(name = "Class.findByIsdelete", query = "SELECT c FROM Class c WHERE c.isdelete = :isdelete")})
+public class Class implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,17 +53,17 @@ public class Role implements Serializable {
     @NotNull
     @Column(name = "isdelete")
     private Character isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1", fetch = FetchType.LAZY)
+    private List<BatchClass> batchClassList;
 
-    public Role() {
+    public Class() {
     }
 
-    public Role(Integer id) {
+    public Class(Integer id) {
         this.id = id;
     }
 
-    public Role(Integer id, String name, Character isdelete) {
+    public Class(Integer id, String name, Character isdelete) {
         this.id = id;
         this.name = name;
         this.isdelete = isdelete;
@@ -94,12 +94,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public List<BatchClass> getBatchClassList() {
+        return batchClassList;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setBatchClassList(List<BatchClass> batchClassList) {
+        this.batchClassList = batchClassList;
     }
 
     @Override
@@ -112,10 +112,10 @@ public class Role implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+        if (!(object instanceof Class)) {
             return false;
         }
-        Role other = (Role) object;
+        Class other = (Class) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +124,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eval.entities.Role[ id=" + id + " ]";
+        return "com.eval.entities.Class[ id=" + id + " ]";
     }
     
 }

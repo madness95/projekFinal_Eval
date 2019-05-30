@@ -6,37 +6,37 @@
 package com.eval.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author sofia
  */
 @Entity
-@Table(name = "role")
+@Table(name = "grade_emp")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
-    , @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id")
-    , @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
-    , @NamedQuery(name = "Role.findByIsdelete", query = "SELECT r FROM Role r WHERE r.isdelete = :isdelete")})
-public class Role implements Serializable {
+    @NamedQuery(name = "GradeEmp.findAll", query = "SELECT g FROM GradeEmp g")
+    , @NamedQuery(name = "GradeEmp.findById", query = "SELECT g FROM GradeEmp g WHERE g.id = :id")
+    , @NamedQuery(name = "GradeEmp.findByIsdelete", query = "SELECT g FROM GradeEmp g WHERE g.isdelete = :isdelete")
+    , @NamedQuery(name = "GradeEmp.findByLastUpdate", query = "SELECT g FROM GradeEmp g WHERE g.lastUpdate = :lastUpdate")})
+public class GradeEmp implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,27 +46,31 @@ public class Role implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "name")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "isdelete")
     private Character isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "last_update")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+    @JoinColumn(name = "grade", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Grade grade;
+    @JoinColumn(name = "student", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Employee student;
 
-    public Role() {
+    public GradeEmp() {
     }
 
-    public Role(Integer id) {
+    public GradeEmp(Integer id) {
         this.id = id;
     }
 
-    public Role(Integer id, String name, Character isdelete) {
+    public GradeEmp(Integer id, Character isdelete, Date lastUpdate) {
         this.id = id;
-        this.name = name;
         this.isdelete = isdelete;
+        this.lastUpdate = lastUpdate;
     }
 
     public Integer getId() {
@@ -77,14 +81,6 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Character getIsdelete() {
         return isdelete;
     }
@@ -93,13 +89,28 @@ public class Role implements Serializable {
         this.isdelete = isdelete;
     }
 
-    @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public Date getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
+    public Employee getStudent() {
+        return student;
+    }
+
+    public void setStudent(Employee student) {
+        this.student = student;
     }
 
     @Override
@@ -112,10 +123,10 @@ public class Role implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+        if (!(object instanceof GradeEmp)) {
             return false;
         }
-        Role other = (Role) object;
+        GradeEmp other = (GradeEmp) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +135,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eval.entities.Role[ id=" + id + " ]";
+        return "com.eval.entities.GradeEmp[ id=" + id + " ]";
     }
     
 }

@@ -12,8 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,21 +27,22 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author sofia
  */
 @Entity
-@Table(name = "role")
+@Table(name = "job")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
-    , @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id")
-    , @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
-    , @NamedQuery(name = "Role.findByIsdelete", query = "SELECT r FROM Role r WHERE r.isdelete = :isdelete")})
-public class Role implements Serializable {
+    @NamedQuery(name = "Job.findAll", query = "SELECT j FROM Job j")
+    , @NamedQuery(name = "Job.findById", query = "SELECT j FROM Job j WHERE j.id = :id")
+    , @NamedQuery(name = "Job.findByName", query = "SELECT j FROM Job j WHERE j.name = :name")
+    , @NamedQuery(name = "Job.findByIsdelete", query = "SELECT j FROM Job j WHERE j.isdelete = :isdelete")})
+public class Job implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "id")
-    private Integer id;
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -53,27 +52,27 @@ public class Role implements Serializable {
     @NotNull
     @Column(name = "isdelete")
     private Character isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "job", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
-    public Role() {
+    public Job() {
     }
 
-    public Role(Integer id) {
+    public Job(String id) {
         this.id = id;
     }
 
-    public Role(Integer id, String name, Character isdelete) {
+    public Job(String id, String name, Character isdelete) {
         this.id = id;
         this.name = name;
         this.isdelete = isdelete;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -112,10 +111,10 @@ public class Role implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+        if (!(object instanceof Job)) {
             return false;
         }
-        Role other = (Role) object;
+        Job other = (Job) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +123,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eval.entities.Role[ id=" + id + " ]";
+        return "com.eval.entities.Job[ id=" + id + " ]";
     }
     
 }

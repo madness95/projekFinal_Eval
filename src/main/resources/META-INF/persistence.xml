@@ -3,6 +3,17 @@
   <persistence-unit name="com.eval_eval_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.eval.entities.Role</class>
+    <class>com.eval.entities.Job</class>
+    <class>com.eval.entities.Assignment</class>
+    <class>com.eval.entities.Employee</class>
+    <class>com.eval.entities.Task</class>
+    <class>com.eval.entities.BatchClass</class>
+    <class>com.eval.entities.GradeEmp</class>
+    <class>com.eval.entities.Department</class>
+    <class>com.eval.entities.Batch</class>
+    <class>com.eval.entities.Exam</class>
+    <class>com.eval.entities.Grade</class>
+    <class>com.eval.entities.Class</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eval?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

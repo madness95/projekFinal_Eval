@@ -29,14 +29,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author sofia
  */
 @Entity
-@Table(name = "role")
+@Table(name = "department")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
-    , @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id")
-    , @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
-    , @NamedQuery(name = "Role.findByIsdelete", query = "SELECT r FROM Role r WHERE r.isdelete = :isdelete")})
-public class Role implements Serializable {
+    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
+    , @NamedQuery(name = "Department.findById", query = "SELECT d FROM Department d WHERE d.id = :id")
+    , @NamedQuery(name = "Department.findByName", query = "SELECT d FROM Department d WHERE d.name = :name")
+    , @NamedQuery(name = "Department.findByIsdelete", query = "SELECT d FROM Department d WHERE d.isdelete = :isdelete")})
+public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,17 +53,17 @@ public class Role implements Serializable {
     @NotNull
     @Column(name = "isdelete")
     private Character isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
-    public Role() {
+    public Department() {
     }
 
-    public Role(Integer id) {
+    public Department(Integer id) {
         this.id = id;
     }
 
-    public Role(Integer id, String name, Character isdelete) {
+    public Department(Integer id, String name, Character isdelete) {
         this.id = id;
         this.name = name;
         this.isdelete = isdelete;
@@ -112,10 +112,10 @@ public class Role implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+        if (!(object instanceof Department)) {
             return false;
         }
-        Role other = (Role) object;
+        Department other = (Department) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +124,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eval.entities.Role[ id=" + id + " ]";
+        return "com.eval.entities.Department[ id=" + id + " ]";
     }
     
 }

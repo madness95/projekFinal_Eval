@@ -6,6 +6,7 @@
 package com.eval.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -19,8 +20,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -29,14 +31,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author sofia
  */
 @Entity
-@Table(name = "role")
+@Table(name = "batch")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
-    , @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id")
-    , @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")
-    , @NamedQuery(name = "Role.findByIsdelete", query = "SELECT r FROM Role r WHERE r.isdelete = :isdelete")})
-public class Role implements Serializable {
+    @NamedQuery(name = "Batch.findAll", query = "SELECT b FROM Batch b")
+    , @NamedQuery(name = "Batch.findById", query = "SELECT b FROM Batch b WHERE b.id = :id")
+    , @NamedQuery(name = "Batch.findByPeriod", query = "SELECT b FROM Batch b WHERE b.period = :period")
+    , @NamedQuery(name = "Batch.findByIsdelete", query = "SELECT b FROM Batch b WHERE b.isdelete = :isdelete")})
+public class Batch implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,26 +48,26 @@ public class Role implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "name")
-    private String name;
+    @Column(name = "period")
+    @Temporal(TemporalType.DATE)
+    private Date period;
     @Basic(optional = false)
     @NotNull
     @Column(name = "isdelete")
     private Character isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "batch", fetch = FetchType.LAZY)
+    private List<BatchClass> batchClassList;
 
-    public Role() {
+    public Batch() {
     }
 
-    public Role(Integer id) {
+    public Batch(Integer id) {
         this.id = id;
     }
 
-    public Role(Integer id, String name, Character isdelete) {
+    public Batch(Integer id, Date period, Character isdelete) {
         this.id = id;
-        this.name = name;
+        this.period = period;
         this.isdelete = isdelete;
     }
 
@@ -77,12 +79,12 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Date getPeriod() {
+        return period;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPeriod(Date period) {
+        this.period = period;
     }
 
     public Character getIsdelete() {
@@ -94,12 +96,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public List<BatchClass> getBatchClassList() {
+        return batchClassList;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setBatchClassList(List<BatchClass> batchClassList) {
+        this.batchClassList = batchClassList;
     }
 
     @Override
@@ -112,10 +114,10 @@ public class Role implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+        if (!(object instanceof Batch)) {
             return false;
         }
-        Role other = (Role) object;
+        Batch other = (Batch) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +126,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eval.entities.Role[ id=" + id + " ]";
+        return "com.eval.entities.Batch[ id=" + id + " ]";
     }
     
 }
