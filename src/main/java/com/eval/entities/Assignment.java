@@ -73,11 +73,11 @@ public class Assignment implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(mappedBy = "assignment", fetch = FetchType.LAZY)
-    private List<Task> taskList;
     @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee employee;
+    private Employees employee;
+    @OneToMany(mappedBy = "assignment", fetch = FetchType.LAZY)
+    private List<Task> taskList;
 
     public Assignment() {
     }
@@ -142,6 +142,14 @@ public class Assignment implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
+    public Employees getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employees employee) {
+        this.employee = employee;
+    }
+
     @XmlTransient
     public List<Task> getTaskList() {
         return taskList;
@@ -149,14 +157,6 @@ public class Assignment implements Serializable {
 
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     @Override

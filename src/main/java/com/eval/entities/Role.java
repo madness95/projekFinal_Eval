@@ -53,8 +53,8 @@ public class Role implements Serializable {
     @NotNull
     @Column(name = "isdelete")
     private Character isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId", fetch = FetchType.LAZY)
+    private List<AuthUser> authUserList;
 
     public Role() {
     }
@@ -94,12 +94,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public List<AuthUser> getAuthUserList() {
+        return authUserList;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setAuthUserList(List<AuthUser> authUserList) {
+        this.authUserList = authUserList;
     }
 
     @Override

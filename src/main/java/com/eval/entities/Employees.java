@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,19 +38,19 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "employees")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
-    , @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id")
-    , @NamedQuery(name = "Employee.findByFirstName", query = "SELECT e FROM Employee e WHERE e.firstName = :firstName")
-    , @NamedQuery(name = "Employee.findByLastName", query = "SELECT e FROM Employee e WHERE e.lastName = :lastName")
-    , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
-    , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
-    , @NamedQuery(name = "Employee.findByPhoneNumber", query = "SELECT e FROM Employee e WHERE e.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "Employee.findByBirthdate", query = "SELECT e FROM Employee e WHERE e.birthdate = :birthdate")
-    , @NamedQuery(name = "Employee.findByTrainer", query = "SELECT e FROM Employee e WHERE e.trainer = :trainer")
-    , @NamedQuery(name = "Employee.findByGrade", query = "SELECT e FROM Employee e WHERE e.grade = :grade")
-    , @NamedQuery(name = "Employee.findByIsdelete", query = "SELECT e FROM Employee e WHERE e.isdelete = :isdelete")
-    , @NamedQuery(name = "Employee.findByLastUpdate", query = "SELECT e FROM Employee e WHERE e.lastUpdate = :lastUpdate")})
-public class Employee implements Serializable {
+    @NamedQuery(name = "Employees.findAll", query = "SELECT e FROM Employees e")
+    , @NamedQuery(name = "Employees.findById", query = "SELECT e FROM Employees e WHERE e.id = :id")
+    , @NamedQuery(name = "Employees.findByFirstName", query = "SELECT e FROM Employees e WHERE e.firstName = :firstName")
+    , @NamedQuery(name = "Employees.findByLastName", query = "SELECT e FROM Employees e WHERE e.lastName = :lastName")
+    , @NamedQuery(name = "Employees.findByEmail", query = "SELECT e FROM Employees e WHERE e.email = :email")
+    , @NamedQuery(name = "Employees.findByPassword", query = "SELECT e FROM Employees e WHERE e.password = :password")
+    , @NamedQuery(name = "Employees.findByPhoneNumber", query = "SELECT e FROM Employees e WHERE e.phoneNumber = :phoneNumber")
+    , @NamedQuery(name = "Employees.findByBirthdate", query = "SELECT e FROM Employees e WHERE e.birthdate = :birthdate")
+    , @NamedQuery(name = "Employees.findByTrainer", query = "SELECT e FROM Employees e WHERE e.trainer = :trainer")
+    , @NamedQuery(name = "Employees.findByGrade", query = "SELECT e FROM Employees e WHERE e.grade = :grade")
+    , @NamedQuery(name = "Employees.findByIsdelete", query = "SELECT e FROM Employees e WHERE e.isdelete = :isdelete")
+    , @NamedQuery(name = "Employees.findByLastUpdate", query = "SELECT e FROM Employees e WHERE e.lastUpdate = :lastUpdate")})
+public class Employees implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -104,14 +105,16 @@ public class Employee implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
-    private List<Exam> examList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
-    private List<Task> taskList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Assignment> assignmentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
     private List<GradeEmp> gradeEmpList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
+    private List<Exam> examList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
+    private List<Task> taskList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employees", fetch = FetchType.LAZY)
+    private AuthUser authUser;
     @JoinColumn(name = "batchclass", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private BatchClass batchclass;
@@ -121,18 +124,15 @@ public class Employee implements Serializable {
     @JoinColumn(name = "job", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Job job;
-    @JoinColumn(name = "role", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Role role;
 
-    public Employee() {
+    public Employees() {
     }
 
-    public Employee(Integer id) {
+    public Employees(Integer id) {
         this.id = id;
     }
 
-    public Employee(Integer id, String firstName, String lastName, String email, String password, int phoneNumber, Date birthdate, int trainer, int grade, Character isdelete, Date lastUpdate) {
+    public Employees(Integer id, String firstName, String lastName, String email, String password, int phoneNumber, Date birthdate, int trainer, int grade, Character isdelete, Date lastUpdate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -235,6 +235,24 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
+    public List<Assignment> getAssignmentList() {
+        return assignmentList;
+    }
+
+    public void setAssignmentList(List<Assignment> assignmentList) {
+        this.assignmentList = assignmentList;
+    }
+
+    @XmlTransient
+    public List<GradeEmp> getGradeEmpList() {
+        return gradeEmpList;
+    }
+
+    public void setGradeEmpList(List<GradeEmp> gradeEmpList) {
+        this.gradeEmpList = gradeEmpList;
+    }
+
+    @XmlTransient
     public List<Exam> getExamList() {
         return examList;
     }
@@ -252,22 +270,12 @@ public class Employee implements Serializable {
         this.taskList = taskList;
     }
 
-    @XmlTransient
-    public List<Assignment> getAssignmentList() {
-        return assignmentList;
+    public AuthUser getAuthUser() {
+        return authUser;
     }
 
-    public void setAssignmentList(List<Assignment> assignmentList) {
-        this.assignmentList = assignmentList;
-    }
-
-    @XmlTransient
-    public List<GradeEmp> getGradeEmpList() {
-        return gradeEmpList;
-    }
-
-    public void setGradeEmpList(List<GradeEmp> gradeEmpList) {
-        this.gradeEmpList = gradeEmpList;
+    public void setAuthUser(AuthUser authUser) {
+        this.authUser = authUser;
     }
 
     public BatchClass getBatchclass() {
@@ -294,14 +302,6 @@ public class Employee implements Serializable {
         this.job = job;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -312,10 +312,10 @@ public class Employee implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employee)) {
+        if (!(object instanceof Employees)) {
             return false;
         }
-        Employee other = (Employee) object;
+        Employees other = (Employees) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -324,7 +324,7 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eval.entities.Employee[ id=" + id + " ]";
+        return "com.eval.entities.Employees[ id=" + id + " ]";
     }
     
 }

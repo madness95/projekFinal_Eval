@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,21 +30,21 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author sofia
  */
 @Entity
-@Table(name = "grade_emp")
+@Table(name = "auth_user")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "GradeEmp.findAll", query = "SELECT g FROM GradeEmp g")
-    , @NamedQuery(name = "GradeEmp.findById", query = "SELECT g FROM GradeEmp g WHERE g.id = :id")
-    , @NamedQuery(name = "GradeEmp.findByIsdelete", query = "SELECT g FROM GradeEmp g WHERE g.isdelete = :isdelete")
-    , @NamedQuery(name = "GradeEmp.findByLastUpdate", query = "SELECT g FROM GradeEmp g WHERE g.lastUpdate = :lastUpdate")})
-public class GradeEmp implements Serializable {
+    @NamedQuery(name = "AuthUser.findAll", query = "SELECT a FROM AuthUser a")
+    , @NamedQuery(name = "AuthUser.findByEmpId", query = "SELECT a FROM AuthUser a WHERE a.empId = :empId")
+    , @NamedQuery(name = "AuthUser.findByIsdelete", query = "SELECT a FROM AuthUser a WHERE a.isdelete = :isdelete")
+    , @NamedQuery(name = "AuthUser.findByLastUpdate", query = "SELECT a FROM AuthUser a WHERE a.lastUpdate = :lastUpdate")})
+public class AuthUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "emp_id")
+    private Integer empId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "isdelete")
@@ -53,32 +54,32 @@ public class GradeEmp implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "grade", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Grade grade;
-    @JoinColumn(name = "student", referencedColumnName = "id")
+    @JoinColumn(name = "emp_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private Employees employees;
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employees student;
+    private Role roleId;
 
-    public GradeEmp() {
+    public AuthUser() {
     }
 
-    public GradeEmp(Integer id) {
-        this.id = id;
+    public AuthUser(Integer empId) {
+        this.empId = empId;
     }
 
-    public GradeEmp(Integer id, Character isdelete, Date lastUpdate) {
-        this.id = id;
+    public AuthUser(Integer empId, Character isdelete, Date lastUpdate) {
+        this.empId = empId;
         this.isdelete = isdelete;
         this.lastUpdate = lastUpdate;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getEmpId() {
+        return empId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
     }
 
     public Character getIsdelete() {
@@ -97,37 +98,37 @@ public class GradeEmp implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Grade getGrade() {
-        return grade;
+    public Employees getEmployees() {
+        return employees;
     }
 
-    public void setGrade(Grade grade) {
-        this.grade = grade;
+    public void setEmployees(Employees employees) {
+        this.employees = employees;
     }
 
-    public Employees getStudent() {
-        return student;
+    public Role getRoleId() {
+        return roleId;
     }
 
-    public void setStudent(Employees student) {
-        this.student = student;
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (empId != null ? empId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof GradeEmp)) {
+        if (!(object instanceof AuthUser)) {
             return false;
         }
-        GradeEmp other = (GradeEmp) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        AuthUser other = (AuthUser) object;
+        if ((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId))) {
             return false;
         }
         return true;
@@ -135,7 +136,7 @@ public class GradeEmp implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eval.entities.GradeEmp[ id=" + id + " ]";
+        return "com.eval.entities.AuthUser[ empId=" + empId + " ]";
     }
     
 }

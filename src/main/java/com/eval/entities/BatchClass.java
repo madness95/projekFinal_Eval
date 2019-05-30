@@ -71,7 +71,7 @@ public class BatchClass implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Batch batch;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batchclass", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
+    private List<Employees> employeesList;
 
     public BatchClass() {
     }
@@ -145,12 +145,12 @@ public class BatchClass implements Serializable {
     }
 
     @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public List<Employees> getEmployeesList() {
+        return employeesList;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setEmployeesList(List<Employees> employeesList) {
+        this.employeesList = employeesList;
     }
 
     @Override

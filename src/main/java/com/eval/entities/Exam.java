@@ -69,7 +69,7 @@ public class Exam implements Serializable {
     private BatchClass batchClass;
     @JoinColumn(name = "student", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee student;
+    private Employees student;
 
     public Exam() {
     }
@@ -134,11 +134,11 @@ public class Exam implements Serializable {
         this.batchClass = batchClass;
     }
 
-    public Employee getStudent() {
+    public Employees getStudent() {
         return student;
     }
 
-    public void setStudent(Employee student) {
+    public void setStudent(Employees student) {
         this.student = student;
     }
 

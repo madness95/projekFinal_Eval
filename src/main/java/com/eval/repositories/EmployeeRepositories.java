@@ -5,7 +5,7 @@
  */
 package com.eval.repositories;
 
-import com.eval.entities.Employee;
+import com.eval.entities.Employees;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author sofia
  */
 @Repository
-public interface EmployeeRepositories extends CrudRepository<Employee, Integer>{
+public interface EmployeeRepositories extends CrudRepository<Employees, Integer>{
     
 }

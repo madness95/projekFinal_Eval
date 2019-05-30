@@ -73,15 +73,14 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Nama</th>
-                                <th>Test</th>
-                                <th>Action</th>
+                                <th>isdelete</th>                                
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each = "data:${dataActor}">
-                                <td id="actor_Id" th:text="${data.actorId}"></td>
-                                <td id="first_Name" th:text="${data.firstName}"></td>
-                                <td id="last_Name" th:text="${data.lastName}"></td>
+                            <tr th:each = "data:${dataRole}">
+                                <td id="actor_Id" th:text="${data.id}"></td>
+                                <td id="first_Name" th:text="${data.name}"></td>                                
+                                <td id="isdelete" th:text="${data.isdelete}"></td>                                
                                 <td>
                                     <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#edit-actor"><i class="fa fa-edit"></i>
                                         Edit</button>

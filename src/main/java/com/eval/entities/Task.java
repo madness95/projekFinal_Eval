@@ -69,7 +69,7 @@ public class Task implements Serializable {
     private Assignment assignment;
     @JoinColumn(name = "student", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee student;
+    private Employees student;
 
     public Task() {
     }
@@ -134,11 +134,11 @@ public class Task implements Serializable {
         this.assignment = assignment;
     }
 
-    public Employee getStudent() {
+    public Employees getStudent() {
         return student;
     }
 
-    public void setStudent(Employee student) {
+    public void setStudent(Employees student) {
         this.student = student;
     }
 
