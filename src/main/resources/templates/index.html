@@ -64,7 +64,7 @@
                   This week
                 </button>
               </div> -->
-                    <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#input-actor"><i class="fa fa-plus-circle"></i>
+                    <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#input-role"><i class="fa fa-plus-circle"></i>
                         Add Data</button>
                     </div>
 
@@ -96,7 +96,7 @@
         </div>
 
         <!-- Modal input Dialog -->
-        <div class="modal fade" id="input-actor" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+        <div class="modal fade" id="input-role" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -105,24 +105,24 @@
                     </div>
                     <form th:action="@{/addData}" method="post">
  
-                        <div class="form-group required">
+<!--                        <div class="form-group required">
                             <label for="actorId" class="col-form-label col-md-4">Actor ID</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="actorId" name="actorId" placeholder="Actor Identity">
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group required">
-                            <label for="firstName" class="col-form-label col-md-4">First Name</label>
+                            <label for="name" class="col-form-label col-md-4">Role Name</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name">
+                                <input type="text" class="form-control" id="firstName" name="name" placeholder="Role Name">
                             </div>
                         </div>
-                        <div class="form-group required">
+<!--                        <div class="form-group required">
                             <label for="lastName" class="col-form-label col-md-4">Last Name</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name">
                             </div>
-                        </div>
+                        </div>-->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-success" id="confirm">Save</button>
@@ -191,17 +191,17 @@
                             <div class="modal-body">
 <!--                                <span id="actor_Id"></span>-->
                                 <div class="form-group required">
-                                    <label for="actorId" class="col-form-label">Actor ID</label>
+                                    <label for="id" class="col-form-label">Role ID</label>
                                     <input type="text" class="form-control" id="actor_Id" name="actorId" placeholder="Actor Identity" readonly>
                                 </div>
                                 <div class="form-group required">
-                                    <label for="firstName" class="col-form-label">First Name</label>
-                                    <input type="text" class="form-control" id="first_Name" name="firstName" placeholder="First Name">
+                                    <label for="name" class="col-form-label">Role Name</label>
+                                    <input type="text" class="form-control" id="first_Name" name="name" placeholder="Role Name">
                                 </div>
-                                <div class="form-group required">
+<!--                                <div class="form-group required">
                                     <label for="lastName" class="col-form-label">Last Name</label>
                                     <input type="text" class="form-control" id="last_Name" name="lastName" placeholder="Last Name">
-                                </div>
+                                </div>-->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

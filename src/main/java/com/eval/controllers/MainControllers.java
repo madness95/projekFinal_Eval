@@ -7,6 +7,7 @@ package com.eval.controllers;
 
 import com.eval.entities.Role;
 import com.eval.repositories.RoleRepositories;
+import com.eval.services.RoleServices;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -23,12 +25,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MainControllers {
     @Autowired
     private RoleRepositories roleRepositories;
+    @Autowired
+    private RoleServices roleServices;
     
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("dataRole", roleRepositories.findAll());
+        model.addAttribute("dataRole", roleServices.getAll());
         return "index";
     }
+    
+//    @GetMapping("/*")
+//    public String handleerror (){
+//        return "error";        
+//    }
     
     @PostMapping("/addDataRole")
     public String addData (@Valid Role role){
