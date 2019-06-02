@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -53,8 +54,9 @@ public class Batch implements Serializable {
     private Date period;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batch", fetch = FetchType.LAZY)
     private List<BatchClass> batchClassList;
 
@@ -65,7 +67,7 @@ public class Batch implements Serializable {
         this.id = id;
     }
 
-    public Batch(Integer id, Date period, Character isdelete) {
+    public Batch(Integer id, Date period, String isdelete) {
         this.id = id;
         this.period = period;
         this.isdelete = isdelete;
@@ -87,11 +89,11 @@ public class Batch implements Serializable {
         this.period = period;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 

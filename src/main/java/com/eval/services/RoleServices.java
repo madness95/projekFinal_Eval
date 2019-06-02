@@ -23,4 +23,8 @@ public class RoleServices {
     public List<Role> getAll (){
         return roleRepositories.getAll();
     }
+    
+//    public void insertRole(String name){
+//        roleRepositories.insertRole(name);
+//    }
 }

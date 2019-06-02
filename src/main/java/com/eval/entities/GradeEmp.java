@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -46,8 +47,9 @@ public class GradeEmp implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
@@ -58,7 +60,7 @@ public class GradeEmp implements Serializable {
     private Grade grade;
     @JoinColumn(name = "student", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employees student;
+    private Employee student;
 
     public GradeEmp() {
     }
@@ -67,7 +69,7 @@ public class GradeEmp implements Serializable {
         this.id = id;
     }
 
-    public GradeEmp(Integer id, Character isdelete, Date lastUpdate) {
+    public GradeEmp(Integer id, String isdelete, Date lastUpdate) {
         this.id = id;
         this.isdelete = isdelete;
         this.lastUpdate = lastUpdate;
@@ -81,11 +83,11 @@ public class GradeEmp implements Serializable {
         this.id = id;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 
@@ -105,11 +107,11 @@ public class GradeEmp implements Serializable {
         this.grade = grade;
     }
 
-    public Employees getStudent() {
+    public Employee getStudent() {
         return student;
     }
 
-    public void setStudent(Employees student) {
+    public void setStudent(Employee student) {
         this.student = student;
     }
 

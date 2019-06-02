@@ -38,19 +38,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "employees")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employees.findAll", query = "SELECT e FROM Employees e")
-    , @NamedQuery(name = "Employees.findById", query = "SELECT e FROM Employees e WHERE e.id = :id")
-    , @NamedQuery(name = "Employees.findByFirstName", query = "SELECT e FROM Employees e WHERE e.firstName = :firstName")
-    , @NamedQuery(name = "Employees.findByLastName", query = "SELECT e FROM Employees e WHERE e.lastName = :lastName")
-    , @NamedQuery(name = "Employees.findByEmail", query = "SELECT e FROM Employees e WHERE e.email = :email")
-    , @NamedQuery(name = "Employees.findByPassword", query = "SELECT e FROM Employees e WHERE e.password = :password")
-    , @NamedQuery(name = "Employees.findByPhoneNumber", query = "SELECT e FROM Employees e WHERE e.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "Employees.findByBirthdate", query = "SELECT e FROM Employees e WHERE e.birthdate = :birthdate")
-    , @NamedQuery(name = "Employees.findByTrainer", query = "SELECT e FROM Employees e WHERE e.trainer = :trainer")
-    , @NamedQuery(name = "Employees.findByGrade", query = "SELECT e FROM Employees e WHERE e.grade = :grade")
-    , @NamedQuery(name = "Employees.findByIsdelete", query = "SELECT e FROM Employees e WHERE e.isdelete = :isdelete")
-    , @NamedQuery(name = "Employees.findByLastUpdate", query = "SELECT e FROM Employees e WHERE e.lastUpdate = :lastUpdate")})
-public class Employees implements Serializable {
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+    , @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id")
+    , @NamedQuery(name = "Employee.findByFirstName", query = "SELECT e FROM Employee e WHERE e.firstName = :firstName")
+    , @NamedQuery(name = "Employee.findByLastName", query = "SELECT e FROM Employee e WHERE e.lastName = :lastName")
+    , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
+    , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
+    , @NamedQuery(name = "Employee.findByPhoneNumber", query = "SELECT e FROM Employee e WHERE e.phoneNumber = :phoneNumber")
+    , @NamedQuery(name = "Employee.findByBirthdate", query = "SELECT e FROM Employee e WHERE e.birthdate = :birthdate")
+    , @NamedQuery(name = "Employee.findByTrainer", query = "SELECT e FROM Employee e WHERE e.trainer = :trainer")
+    , @NamedQuery(name = "Employee.findByIsdelete", query = "SELECT e FROM Employee e WHERE e.isdelete = :isdelete")
+    , @NamedQuery(name = "Employee.findByLastUpdate", query = "SELECT e FROM Employee e WHERE e.lastUpdate = :lastUpdate")})
+public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -76,30 +75,26 @@ public class Employees implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 60)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 12)
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private String phoneNumber;
     @Basic(optional = false)
     @NotNull
     @Column(name = "birthdate")
     @Temporal(TemporalType.DATE)
     private Date birthdate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "trainer")
-    private int trainer;
+    private Integer trainer;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "grade")
-    private int grade;
-    @Basic(optional = false)
-    @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
@@ -113,26 +108,26 @@ public class Employees implements Serializable {
     private List<Exam> examList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
     private List<Task> taskList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employees", fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private AuthUser authUser;
     @JoinColumn(name = "batchclass", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private BatchClass batchclass;
     @JoinColumn(name = "department", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
     @JoinColumn(name = "job", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Job job;
 
-    public Employees() {
+    public Employee() {
     }
 
-    public Employees(Integer id) {
+    public Employee(Integer id) {
         this.id = id;
     }
 
-    public Employees(Integer id, String firstName, String lastName, String email, String password, int phoneNumber, Date birthdate, int trainer, int grade, Character isdelete, Date lastUpdate) {
+    public Employee(Integer id, String firstName, String lastName, String email, String password, String phoneNumber, Date birthdate, String isdelete, Date lastUpdate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -140,8 +135,6 @@ public class Employees implements Serializable {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.birthdate = birthdate;
-        this.trainer = trainer;
-        this.grade = grade;
         this.isdelete = isdelete;
         this.lastUpdate = lastUpdate;
     }
@@ -186,11 +179,11 @@ public class Employees implements Serializable {
         this.password = password;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -202,27 +195,19 @@ public class Employees implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public int getTrainer() {
+    public Integer getTrainer() {
         return trainer;
     }
 
-    public void setTrainer(int trainer) {
+    public void setTrainer(Integer trainer) {
         this.trainer = trainer;
     }
 
-    public int getGrade() {
-        return grade;
-    }
-
-    public void setGrade(int grade) {
-        this.grade = grade;
-    }
-
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 
@@ -312,10 +297,10 @@ public class Employees implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employees)) {
+        if (!(object instanceof Employee)) {
             return false;
         }
-        Employees other = (Employees) object;
+        Employee other = (Employee) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -324,7 +309,7 @@ public class Employees implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eval.entities.Employees[ id=" + id + " ]";
+        return "com.eval.entities.Employee[ id=" + id + " ]";
     }
     
 }

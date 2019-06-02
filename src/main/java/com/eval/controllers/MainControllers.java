@@ -31,6 +31,7 @@ public class MainControllers {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("dataRole", roleServices.getAll());
+//        model.addAttribute("dataRole", roleRepositories.findAll());    
         return "index";
     }
     
@@ -40,8 +41,9 @@ public class MainControllers {
 //    }
     
     @PostMapping("/addDataRole")
-    public String addData (@Valid Role role){
+    public String addData (@Valid Role role){       
         roleRepositories.save(role);
+//        roleServices.insertRole(role.getName());
 //        model.addAttribute("dataActor", filmActorService.findAllActor());
 //        return "index";
         return "redirect:/";

@@ -51,8 +51,9 @@ public class Class implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1", fetch = FetchType.LAZY)
     private List<BatchClass> batchClassList;
 
@@ -63,7 +64,7 @@ public class Class implements Serializable {
         this.id = id;
     }
 
-    public Class(Integer id, String name, Character isdelete) {
+    public Class(Integer id, String name, String isdelete) {
         this.id = id;
         this.name = name;
         this.isdelete = isdelete;
@@ -85,11 +86,11 @@ public class Class implements Serializable {
         this.name = name;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 

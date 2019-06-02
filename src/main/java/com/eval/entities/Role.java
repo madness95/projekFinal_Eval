@@ -6,23 +6,18 @@
 package com.eval.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -51,10 +46,9 @@ public class Role implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId", fetch = FetchType.LAZY)
-    private List<AuthUser> authUserList;
+    private String isdelete;
 
     public Role() {
     }
@@ -63,7 +57,7 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public Role(Integer id, String name, Character isdelete) {
+    public Role(Integer id, String name, String isdelete) {
         this.id = id;
         this.name = name;
         this.isdelete = isdelete;
@@ -85,21 +79,12 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
-    }
-
-    @XmlTransient
-    public List<AuthUser> getAuthUserList() {
-        return authUserList;
-    }
-
-    public void setAuthUserList(List<AuthUser> authUserList) {
-        this.authUserList = authUserList;
     }
 
     @Override

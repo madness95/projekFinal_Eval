@@ -50,10 +50,11 @@ public class Job implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "job", fetch = FetchType.LAZY)
-    private List<Employees> employeesList;
+    private List<Employee> employeeList;
 
     public Job() {
     }
@@ -62,7 +63,7 @@ public class Job implements Serializable {
         this.id = id;
     }
 
-    public Job(String id, String name, Character isdelete) {
+    public Job(String id, String name, String isdelete) {
         this.id = id;
         this.name = name;
         this.isdelete = isdelete;
@@ -84,21 +85,21 @@ public class Job implements Serializable {
         this.name = name;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 
     @XmlTransient
-    public List<Employees> getEmployeesList() {
-        return employeesList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeesList(List<Employees> employeesList) {
-        this.employeesList = employeesList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @Override

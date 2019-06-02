@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -57,8 +58,9 @@ public class Task implements Serializable {
     private float mark;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
@@ -69,7 +71,7 @@ public class Task implements Serializable {
     private Assignment assignment;
     @JoinColumn(name = "student", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employees student;
+    private Employee student;
 
     public Task() {
     }
@@ -78,7 +80,7 @@ public class Task implements Serializable {
         this.id = id;
     }
 
-    public Task(Integer id, Date date, float mark, Character isdelete, Date lastUpdate) {
+    public Task(Integer id, Date date, float mark, String isdelete, Date lastUpdate) {
         this.id = id;
         this.date = date;
         this.mark = mark;
@@ -110,11 +112,11 @@ public class Task implements Serializable {
         this.mark = mark;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 
@@ -134,11 +136,11 @@ public class Task implements Serializable {
         this.assignment = assignment;
     }
 
-    public Employees getStudent() {
+    public Employee getStudent() {
         return student;
     }
 
-    public void setStudent(Employees student) {
+    public void setStudent(Employee student) {
         this.student = student;
     }
 

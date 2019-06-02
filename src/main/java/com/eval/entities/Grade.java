@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -48,8 +49,9 @@ public class Grade implements Serializable {
     private Character name;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @OneToMany(mappedBy = "grade", fetch = FetchType.LAZY)
     private List<GradeEmp> gradeEmpList;
 
@@ -60,7 +62,7 @@ public class Grade implements Serializable {
         this.id = id;
     }
 
-    public Grade(Integer id, Character name, Character isdelete) {
+    public Grade(Integer id, Character name, String isdelete) {
         this.id = id;
         this.name = name;
         this.isdelete = isdelete;
@@ -82,11 +84,11 @@ public class Grade implements Serializable {
         this.name = name;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 

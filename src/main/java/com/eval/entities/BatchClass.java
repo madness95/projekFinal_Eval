@@ -25,6 +25,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -55,8 +56,9 @@ public class BatchClass implements Serializable {
     private int trainer;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
@@ -70,8 +72,8 @@ public class BatchClass implements Serializable {
     @JoinColumn(name = "batch", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Batch batch;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "batchclass", fetch = FetchType.LAZY)
-    private List<Employees> employeesList;
+    @OneToMany(mappedBy = "batchclass", fetch = FetchType.LAZY)
+    private List<Employee> employeeList;
 
     public BatchClass() {
     }
@@ -80,7 +82,7 @@ public class BatchClass implements Serializable {
         this.id = id;
     }
 
-    public BatchClass(Integer id, int trainer, Character isdelete, Date lastUpdate) {
+    public BatchClass(Integer id, int trainer, String isdelete, Date lastUpdate) {
         this.id = id;
         this.trainer = trainer;
         this.isdelete = isdelete;
@@ -103,11 +105,11 @@ public class BatchClass implements Serializable {
         this.trainer = trainer;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 
@@ -145,12 +147,12 @@ public class BatchClass implements Serializable {
     }
 
     @XmlTransient
-    public List<Employees> getEmployeesList() {
-        return employeesList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeesList(List<Employees> employeesList) {
-        this.employeesList = employeesList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @Override

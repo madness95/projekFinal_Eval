@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -47,8 +48,9 @@ public class AuthUser implements Serializable {
     private Integer empId;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
@@ -56,7 +58,7 @@ public class AuthUser implements Serializable {
     private Date lastUpdate;
     @JoinColumn(name = "emp_id", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private Employees employees;
+    private Employee employee;
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Role roleId;
@@ -68,7 +70,7 @@ public class AuthUser implements Serializable {
         this.empId = empId;
     }
 
-    public AuthUser(Integer empId, Character isdelete, Date lastUpdate) {
+    public AuthUser(Integer empId, String isdelete, Date lastUpdate) {
         this.empId = empId;
         this.isdelete = isdelete;
         this.lastUpdate = lastUpdate;
@@ -82,11 +84,11 @@ public class AuthUser implements Serializable {
         this.empId = empId;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 
@@ -98,12 +100,12 @@ public class AuthUser implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Employees getEmployees() {
-        return employees;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployees(Employees employees) {
-        this.employees = employees;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Role getRoleId() {

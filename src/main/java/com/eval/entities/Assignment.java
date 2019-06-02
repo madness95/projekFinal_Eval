@@ -66,8 +66,9 @@ public class Assignment implements Serializable {
     private Date date;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "isdelete")
-    private Character isdelete;
+    private String isdelete;
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
@@ -75,7 +76,7 @@ public class Assignment implements Serializable {
     private Date lastUpdate;
     @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employees employee;
+    private Employee employee;
     @OneToMany(mappedBy = "assignment", fetch = FetchType.LAZY)
     private List<Task> taskList;
 
@@ -86,7 +87,7 @@ public class Assignment implements Serializable {
         this.id = id;
     }
 
-    public Assignment(Integer id, Date deadline, Date date, Character isdelete, Date lastUpdate) {
+    public Assignment(Integer id, Date deadline, Date date, String isdelete, Date lastUpdate) {
         this.id = id;
         this.deadline = deadline;
         this.date = date;
@@ -126,11 +127,11 @@ public class Assignment implements Serializable {
         this.date = date;
     }
 
-    public Character getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Character isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 
@@ -142,11 +143,11 @@ public class Assignment implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Employees getEmployee() {
+    public Employee getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employees employee) {
+    public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
