@@ -12,63 +12,93 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author sofia
+ * @author Okala
  */
 @Controller
 public class MainControllers {
+
     @Autowired
     private RoleRepositories roleRepositories;
     @Autowired
     private RoleServices roleServices;
-    
+
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("dataRole", roleServices.getAll());
-//        model.addAttribute("dataRole", roleRepositories.findAll());    
+        model.addAttribute("dataRole", roleRepositories.getAll());
         return "index";
     }
-    
-//    @GetMapping("/*")
-//    public String handleerror (){
-//        return "error";        
+
+//    @PostMapping("/addactor")
+//    public String addActor(@Valid Actor actor, Model model) {
+////        if (result.hasErrors()) {
+////            return "index";
+////        }
+//        actorRepository.save(actor);
+//        model.addAttribute("actor", actorRepository.findAll());
+//        return "index";
 //    }
-    
-    @PostMapping("/addDataRole")
-    public String addData (@Valid Role role){       
-        roleRepositories.save(role);
-//        roleServices.insertRole(role.getName());
-//        model.addAttribute("dataActor", filmActorService.findAllActor());
-//        return "index";
-        return "redirect:/";
-    }
-    
-    @GetMapping("/update")
-    public String updateActor(@Valid Role role) {
-//        if (result.hasErrors()) {
-//            actor.setActorId(id);
-//            return "updateActor";
-//        }
-        roleRepositories.save(role);
-//        model.addAttribute("dataActor", filmActorService.findAllActor());
-//        return "index";
-        return "redirect:/";
-    }
-    
-    @GetMapping("/delete/{id}")
-    public String deleteActor(@PathVariable("id") Integer id, Model model) {
+//    @RequestMapping(value = "/addData", method = RequestMethod.POST)
+//    @GetMapping("/edit/{id}")
+//    public String showUpdateForm(@PathVariable("id") Short id, Model model) {
 //        Short ida = id;
 //        int id_actor= ida.intValue();
-        Role role = roleRepositories.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid role Id:" + id));
-        roleRepositories.delete(role);
-        model.addAttribute("role", roleRepositories.findAll());
-        return "index";
+//        Actor actor = actorRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid actor Id:" + id));
+//
+//        model.addAttribute("actor", actor);
+//        return "updateActor";
+//    }
+    @PostMapping("/addDataRole")
+    public String addData(Role role) {
+        role.setId(0);
+        role.setIsdelete("false");
+        roleRepositories.save(role);
+//        model.addAttribute("dataActor", filmActorService.findAllActor());
+//        return "index";
+        return "redirect:/";
     }
+
+//    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @PostMapping("/updateRole/{id}")
+    public String upadateData(@PathVariable("id") String id, @Valid Role role) {
+        role.setIsdelete("false");
+        roleRepositories.save(role);
+        return "redirect:/";
+    }
+
+    @GetMapping("/softdelete/{id}")
+    public String softDelete(@PathVariable("id") String id, Role role) {
+        role.setIsdelete("true");
+        roleRepositories.save(role);
+        return "redirect:/";
+    }
+//    @GetMapping("/delete/{id}")
+//    public String deleteActor(@PathVariable("id") Short id, Model model) {
+//        Short ida = id;
+//        int id_actor= ida.intValue();
+//        Actor actor = actorRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid actor Id:" + id));
+//        actorRepository.delete(actor);
+//        model.addAttribute("actor", actorRepository.findAll());
+//        return "index";
+//    }
+//    @GetMapping("/signin")
+//    public String Login() {
+//        return "/signin/index";
+//    }
+//    @GetMapping("/jsonclient")
+//    public String JSONClient(Model model){
+//        JSONService jsons = new JSONService();
+//        model.addAttribute("dataActor", jsons.getJsonObject("http://localhost:8088/json/actor/all/get"));
+//        return "/json/index";
+//    }
 }
