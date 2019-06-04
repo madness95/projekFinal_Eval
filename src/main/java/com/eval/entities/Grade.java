@@ -48,7 +48,7 @@ public class Grade implements Serializable {
     @Column(name = "name")
     private Character name;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;

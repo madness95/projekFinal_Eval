@@ -6,6 +6,8 @@
 package com.eval.repositories;
 
 import com.eval.entities.Department;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Repository;
  * @author sofia
  */
 @Repository
-public interface DepartmentRepositories extends CrudRepository<Department, Object>{
-    
+public interface DepartmentRepositories extends CrudRepository<Department, Object> {
+
+    @Query(value = "SELECT * FROM `department` WHERE `isdelete` = 'false'", nativeQuery = true)
+    List<Department> getAll();
 }

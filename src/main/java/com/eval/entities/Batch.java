@@ -16,6 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,8 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Batch.findAll", query = "SELECT b FROM Batch b")
     , @NamedQuery(name = "Batch.findById", query = "SELECT b FROM Batch b WHERE b.id = :id")
+    , @NamedQuery(name = "Batch.findByBatch", query = "SELECT b FROM Batch b WHERE b.batch = :batch")
     , @NamedQuery(name = "Batch.findByPeriod", query = "SELECT b FROM Batch b WHERE b.period = :period")
-    , @NamedQuery(name = "Batch.findByIsdelete", query = "SELECT b FROM Batch b WHERE b.isdelete = :isdelete")})
+    , @NamedQuery(name = "Batch.findByTrainer", query = "SELECT b FROM Batch b WHERE b.trainer = :trainer")
+    , @NamedQuery(name = "Batch.findByIsdelete", query = "SELECT b FROM Batch b WHERE b.isdelete = :isdelete")
+    , @NamedQuery(name = "Batch.findByLastUpdate", query = "SELECT b FROM Batch b WHERE b.lastUpdate = :lastUpdate")})
 public class Batch implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,16 +54,35 @@ public class Batch implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "batch")
+    private String batch;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "period")
     @Temporal(TemporalType.DATE)
     private Date period;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "trainer")
+    private int trainer;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "batch", fetch = FetchType.LAZY)
-    private List<BatchClass> batchClassList;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "last_update")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "batchclass", fetch = FetchType.LAZY)
+    private List<Exam> examList;
+    @JoinColumn(name = "class", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Class class1;
+    @OneToMany(mappedBy = "batchclass", fetch = FetchType.LAZY)
+    private List<Employee> employeeList;
 
     public Batch() {
     }
@@ -67,10 +91,13 @@ public class Batch implements Serializable {
         this.id = id;
     }
 
-    public Batch(Integer id, Date period, String isdelete) {
+    public Batch(Integer id, String batch, Date period, int trainer, String isdelete, Date lastUpdate) {
         this.id = id;
+        this.batch = batch;
         this.period = period;
+        this.trainer = trainer;
         this.isdelete = isdelete;
+        this.lastUpdate = lastUpdate;
     }
 
     public Integer getId() {
@@ -81,12 +108,28 @@ public class Batch implements Serializable {
         this.id = id;
     }
 
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
+    }
+
     public Date getPeriod() {
         return period;
     }
 
     public void setPeriod(Date period) {
         this.period = period;
+    }
+
+    public int getTrainer() {
+        return trainer;
+    }
+
+    public void setTrainer(int trainer) {
+        this.trainer = trainer;
     }
 
     public String getIsdelete() {
@@ -97,13 +140,38 @@ public class Batch implements Serializable {
         this.isdelete = isdelete;
     }
 
-    @XmlTransient
-    public List<BatchClass> getBatchClassList() {
-        return batchClassList;
+    public Date getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setBatchClassList(List<BatchClass> batchClassList) {
-        this.batchClassList = batchClassList;
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    @XmlTransient
+    public List<Exam> getExamList() {
+        return examList;
+    }
+
+    public void setExamList(List<Exam> examList) {
+        this.examList = examList;
+    }
+
+    public Class getClass1() {
+        return class1;
+    }
+
+    public void setClass1(Class class1) {
+        this.class1 = class1;
+    }
+
+    @XmlTransient
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @Override

@@ -66,9 +66,9 @@ public class Exam implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "batch_class", referencedColumnName = "id")
+    @JoinColumn(name = "batchclass", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private BatchClass batchClass;
+    private Batch batchclass;
     @JoinColumn(name = "student", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee student;
@@ -128,12 +128,12 @@ public class Exam implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public BatchClass getBatchClass() {
-        return batchClass;
+    public Batch getBatchclass() {
+        return batchclass;
     }
 
-    public void setBatchClass(BatchClass batchClass) {
-        this.batchClass = batchClass;
+    public void setBatchclass(Batch batchclass) {
+        this.batchclass = batchclass;
     }
 
     public Employee getStudent() {

@@ -100,19 +100,19 @@ public class Employee implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<Assignment> assignmentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
-    private List<GradeEmp> gradeEmpList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
     private List<Exam> examList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
     private List<Task> taskList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Assignment> assignmentList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private AuthUser authUser;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
+    private List<GradeEmp> gradeEmpList;
     @JoinColumn(name = "batchclass", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private BatchClass batchclass;
+    private Batch batchclass;
     @JoinColumn(name = "department", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
@@ -220,24 +220,6 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<Assignment> getAssignmentList() {
-        return assignmentList;
-    }
-
-    public void setAssignmentList(List<Assignment> assignmentList) {
-        this.assignmentList = assignmentList;
-    }
-
-    @XmlTransient
-    public List<GradeEmp> getGradeEmpList() {
-        return gradeEmpList;
-    }
-
-    public void setGradeEmpList(List<GradeEmp> gradeEmpList) {
-        this.gradeEmpList = gradeEmpList;
-    }
-
-    @XmlTransient
     public List<Exam> getExamList() {
         return examList;
     }
@@ -255,6 +237,15 @@ public class Employee implements Serializable {
         this.taskList = taskList;
     }
 
+    @XmlTransient
+    public List<Assignment> getAssignmentList() {
+        return assignmentList;
+    }
+
+    public void setAssignmentList(List<Assignment> assignmentList) {
+        this.assignmentList = assignmentList;
+    }
+
     public AuthUser getAuthUser() {
         return authUser;
     }
@@ -263,11 +254,20 @@ public class Employee implements Serializable {
         this.authUser = authUser;
     }
 
-    public BatchClass getBatchclass() {
+    @XmlTransient
+    public List<GradeEmp> getGradeEmpList() {
+        return gradeEmpList;
+    }
+
+    public void setGradeEmpList(List<GradeEmp> gradeEmpList) {
+        this.gradeEmpList = gradeEmpList;
+    }
+
+    public Batch getBatchclass() {
         return batchclass;
     }
 
-    public void setBatchclass(BatchClass batchclass) {
+    public void setBatchclass(Batch batchclass) {
         this.batchclass = batchclass;
     }
 

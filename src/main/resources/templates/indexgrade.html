@@ -71,19 +71,19 @@
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Role Id</th>
-                                <th>Role Name</th>
+                                <th>Grade Id</th>
+                                <th>Grade Name</th>
                                 <!--<th>isdelete</th>-->
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each = "data:${dataRole}">
-                                <td id="role_Id" th:text="${data.id}"></td>
-                                <td id="role_Name" th:text="${data.name}"></td>
+                            <tr th:each = "data:${dataGrade}">
+                                <td id="grade_Id" th:text="${data.id}"></td>
+                                <td id="grade_Name" th:text="${data.name}"></td>
                                 <!--<td id="is_delete" th:text="${data.isdelete}"></td>-->
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#edit-role"><i class="fa fedit-aca-edit"></i>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#update"><i class="fa fedit-aca-edit"></i>
                                         Edit</button>
                                     <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#softdelete"><i class="fa fa-trash"></i>
                                         Delete</button>
@@ -101,21 +101,21 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Add Region</h4>
+                        <h4 class="modal-title">Add Job</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
-                    <form th:action="@{/addDataRole}" method="post">
+                    <form th:action="@{/GradeController/addDataGrade}" method="post">
 
-                        <!--                        <div class="form-group required">
-                                                    <label for="id" class="col-form-label col-md-4">Role ID</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="roleId" name="roleId" placeholder="Role Id">
-                                                    </div>
-                                                </div>-->
-                        <div class="form-group required">
-                            <label for="name" class="col-form-label col-md-4">Role Name</label>
+<!--                        <div class="form-group required">
+                            <label for="id" class="col-form-label col-md-4">ID</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="roleName" name="name" placeholder="Role Name">
+                                <input type="text" class="form-control" id="gradeId" name="id" placeholder="Grade Id">
+                            </div>
+                        </div>-->
+                        <div class="form-group required">
+                            <label for="name" class="col-form-label col-md-4">Grade</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="gradeName" name="name" placeholder="Grade">
                             </div>
                         </div>
                         <!--                        <div class="form-group required">
@@ -179,8 +179,8 @@
                 </div>-->
 
         <div class="update-form">
-            <form th:action="@{/updateRole/id}" method="post">
-                <div class="modal fade" id="edit-role" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form th:action="@{/GradeController/updateGrade/id}" method="post">
+                <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -192,12 +192,12 @@
                             <div class="modal-body">
                                 <!--                                <span id="actor_Id"></span>-->
                                 <div class="form-group required">
-                                    <label for="id" class="col-form-label">Role ID</label>
-                                    <input type="text" class="form-control" id="role_Id" name="id" placeholder="Role Id" readonly>
+                                    <label for="id" class="col-form-label">Job ID</label>
+                                    <input type="text" class="form-control" id="grade_Id" name="id" placeholder="Id" readonly>
                                 </div>
                                 <div class="form-group required">
-                                    <label for="name" class="col-form-label">First Name</label>
-                                    <input type="text" class="form-control" id="role_Name" name="name" placeholder="Role Name">
+                                    <label for="name" class="col-form-label">Job Name</label>
+                                    <input type="text" class="form-control" id="grade_Name" name="name" placeholder="Grade">
                                 </div>
                                 <!--                                <div class="form-group required">
                                                                     <label for="isdelete" class="col-form-label">Last Name</label>
@@ -215,7 +215,7 @@
         </div>
 
         <div class="delete-form">
-            <form th:action="@{/softdelete/id}" method="get">
+            <form th:action="@{/GradeController/softdelete/id}" method="get">
                 <div class="modal fade" id="softdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -226,8 +226,8 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                    <input type="hidden" class="form-control" id="roleid" name="id" placeholder="role id" readonly>
-                                    <input type="hidden" class="form-control" id="rolename" name="name" placeholder="role name">
+                                    <input type="hidden" class="form-control" id="gradeid" name="id" readonly>
+                                    <input type="hidden" class="form-control" id="gradename" name="name">
                                     <!--<input type="hidden" class="form-control" id="isDelete" value="true" name="isDelete" placeholder="Delete">-->
                                     Anda yakin ingin menghapus data ini?
                             </div>
@@ -264,16 +264,16 @@
         </script>
         <script>
             $(document).ready(function () {
-                $("#edit-role").on('show.bs.modal', function (e) {
+                $("#update").on('show.bs.modal', function (e) {
                     var _button = $(e.relatedTarget);
                     var _row = _button.parents("tr");
 
-                    var _roleId = _row.find("#role_Id").text();
-                    var _roleName = _row.find("#role_Name").text();
+                    var _gradeId = _row.find("#grade_Id").text();
+                    var _gradeName = _row.find("#grade_Name").text();
                     var _isdelete = _row.find("#is_delete").text();
 
-                    $(this).find("#role_Id").val(_roleId);
-                    $(this).find("#role_Name").val(_roleName);
+                    $(this).find("#grade_Id").val(_gradeId);
+                    $(this).find("#grade_Name").val(_gradeName);
                     $(this).find("#is_delete").val(_isdelete);
 
 //                    alert($(this).find("#actor_Id").text());
@@ -289,11 +289,11 @@
                     var _button = $(e.relatedTarget);
                     var _row = _button.parents("tr");
 
-                    var _role_id = _row.find("#role_Id").text();
-                    var _role_name = _row.find("#role_Name").text();
+                    var _grade_id = _row.find("#grade_Id").text();
+                    var _grade_name = _row.find("#grade_Name").text();
 
-                    $(this).find("#roleid").val(_role_id);
-                    $(this).find("#rolename").val(_role_name);
+                    $(this).find("#gradeid").val(_grade_id);
+                    $(this).find("#gradename").val(_grade_name);
 
 //                    alert($(this).find("#actor_Id").text());
 //                    alert($(this).find("#first_Name").text());

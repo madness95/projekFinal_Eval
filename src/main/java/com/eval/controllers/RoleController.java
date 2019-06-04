@@ -24,17 +24,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Okala
  */
 @Controller
-public class MainControllers {
+public class RoleController {
 
     @Autowired
     private RoleRepositories roleRepositories;
     @Autowired
     private RoleServices roleServices;
 
-    @GetMapping("/")
+    @GetMapping("/rolecontroller/all")
     public String index(Model model) {
         model.addAttribute("dataRole", roleRepositories.getAll());
-        return "index";
+        return "indexrole";
     }
 
 //    @PostMapping("/addactor")
@@ -57,29 +57,29 @@ public class MainControllers {
 //        model.addAttribute("actor", actor);
 //        return "updateActor";
 //    }
-    @PostMapping("/addDataRole")
+    @PostMapping("/RoleController/addDataRole")
     public String addData(Role role) {
         role.setId(0);
         role.setIsdelete("false");
         roleRepositories.save(role);
 //        model.addAttribute("dataActor", filmActorService.findAllActor());
 //        return "index";
-        return "redirect:/";
+        return "redirect:/rolecontroller/all";
     }
 
 //    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    @PostMapping("/updateRole/{id}")
+    @PostMapping("/RoleController/updateRole/{id}")
     public String upadateData(@PathVariable("id") String id, @Valid Role role) {
         role.setIsdelete("false");
         roleRepositories.save(role);
-        return "redirect:/";
+        return "redirect:/rolecontroller/all";
     }
 
-    @GetMapping("/softdelete/{id}")
+    @GetMapping("/RoleController/softdelete/{id}")
     public String softDelete(@PathVariable("id") String id, Role role) {
         role.setIsdelete("true");
         roleRepositories.save(role);
-        return "redirect:/";
+        return "redirect:/rolecontroller/all";
     }
 //    @GetMapping("/delete/{id}")
 //    public String deleteActor(@PathVariable("id") Short id, Model model) {

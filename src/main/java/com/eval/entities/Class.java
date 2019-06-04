@@ -55,7 +55,7 @@ public class Class implements Serializable {
     @Column(name = "isdelete")
     private String isdelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1", fetch = FetchType.LAZY)
-    private List<BatchClass> batchClassList;
+    private List<Batch> batchList;
 
     public Class() {
     }
@@ -95,12 +95,12 @@ public class Class implements Serializable {
     }
 
     @XmlTransient
-    public List<BatchClass> getBatchClassList() {
-        return batchClassList;
+    public List<Batch> getBatchList() {
+        return batchList;
     }
 
-    public void setBatchClassList(List<BatchClass> batchClassList) {
-        this.batchClassList = batchClassList;
+    public void setBatchList(List<Batch> batchList) {
+        this.batchList = batchList;
     }
 
     @Override
