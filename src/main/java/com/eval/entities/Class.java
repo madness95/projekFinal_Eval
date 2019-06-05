@@ -38,22 +38,23 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Class.findByIsdelete", query = "SELECT c FROM Class c WHERE c.isdelete = :isdelete")})
 public class Class implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-//    @NotNull
+    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1", fetch = FetchType.LAZY)
     private List<Batch> batchList;
 
@@ -78,21 +79,6 @@ public class Class implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIsdelete() {
-        return isdelete;
-    }
-
-    public void setIsdelete(String isdelete) {
-        this.isdelete = isdelete;
-    }
 
     @XmlTransient
     public List<Batch> getBatchList() {
@@ -126,6 +112,22 @@ public class Class implements Serializable {
     @Override
     public String toString() {
         return "com.eval.entities.Class[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(String isdelete) {
+        this.isdelete = isdelete;
     }
     
 }

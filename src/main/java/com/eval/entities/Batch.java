@@ -7,9 +7,7 @@ package com.eval.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,14 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -60,29 +57,26 @@ public class Batch implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "period")
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @Temporal(TemporalType.DATE)    
     private Date period;
     @Basic(optional = false)
     @NotNull
     @Column(name = "trainer")
     private int trainer;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "batchclass", fetch = FetchType.LAZY)
-    private List<Exam> examList;
     @JoinColumn(name = "class", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Class class1;
-    @OneToMany(mappedBy = "batchclass", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
 
     public Batch() {
     }
@@ -148,30 +142,12 @@ public class Batch implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    @XmlTransient
-    public List<Exam> getExamList() {
-        return examList;
-    }
-
-    public void setExamList(List<Exam> examList) {
-        this.examList = examList;
-    }
-
     public Class getClass1() {
         return class1;
     }
 
     public void setClass1(Class class1) {
         this.class1 = class1;
-    }
-
-    @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
     }
 
     @Override
