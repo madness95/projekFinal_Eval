@@ -5,6 +5,9 @@
  */
 package com.eval.repositories;
 
+import com.eval.entities.Department;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ClassRepositories extends CrudRepository<com.eval.entities.Class, Integer>{
-    
+    @Query(value = "SELECT * FROM `class` WHERE `isdelete` = 'false'", nativeQuery = true)
+    List<com.eval.entities.Class> getAll();
 }

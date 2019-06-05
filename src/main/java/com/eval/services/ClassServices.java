@@ -5,9 +5,11 @@
  */
 package com.eval.services;
 
-import com.eval.repositories.ClassRepositories;
+import com.eval.entities.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.eval.repositories.ClassRepositories;
+import java.util.List;
 
 /**
  *
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 public class ClassServices {
     @Autowired
     private ClassRepositories classRepositories;
+    
+      public List<com.eval.entities.Class> getAll() {
+        return classRepositories.getAll();
+    }
 }

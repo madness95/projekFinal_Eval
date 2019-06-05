@@ -50,7 +50,7 @@ public class Class implements Serializable {
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
