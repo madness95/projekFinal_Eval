@@ -74,6 +74,7 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
+                                <th>Class Id</th>
                                 <th>Class Name</th>
                                 <th>Batch</th>
                                 <th>Period</th>
@@ -83,15 +84,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each = "data:${dataClass}">
+                            <tr th:each = "data:${dataBatch}">
                                 <td id="_Id" th:text="${data.id}"></td>
+                                <td id="_Class" th:text="${data.classid.id}"></td>                                
+                                <td id="_ClassName" th:text="${data.classid.name}"></td>                                
                                 <td id="_Batch" th:text="${data.batch}"></td>
-                                <td id="_Class" th:text="${data.class}"></td>
-                                <td id="_Period" th:text="${data.period}"></td>
+                                <td id="_Period" th:text="${data.period}"></td>                                
                                 <td id="_Trainer" th:text="${data.trainer}"></td>
-                                <td id="_Trainer" th:text="${data.trainer}"></td>
-                                <td id="last_update" th:text="${data.lastUpdate}"></td>
-                                <!--<td id="is_delete" th:text="${data.isdelete}"></td>-->
+                                <td id="_isdelete" th:text="${data.isdelete}"></td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#update"><i class="fa fedit-aca-edit"></i>
                                         Edit</button>
@@ -148,7 +148,7 @@
                         <div class="form-group required">
                             <label for="trainer" class="col-form-label col-md-4" hidden="">Last Update</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="last_Update" name="lastupdate" placeholder="" hidden="">
+                                <input type="text" class="form-control" id="lastupdate" name="lastupdate" placeholder="" hidden="">
                             </div>
                         </div>
                         <!--                        <div class="form-group required">

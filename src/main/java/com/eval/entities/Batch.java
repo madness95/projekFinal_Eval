@@ -24,7 +24,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -40,7 +39,7 @@ import org.springframework.format.annotation.DateTimeFormat;
     , @NamedQuery(name = "Batch.findByPeriod", query = "SELECT b FROM Batch b WHERE b.period = :period")
     , @NamedQuery(name = "Batch.findByTrainer", query = "SELECT b FROM Batch b WHERE b.trainer = :trainer")
     , @NamedQuery(name = "Batch.findByIsdelete", query = "SELECT b FROM Batch b WHERE b.isdelete = :isdelete")
-    , @NamedQuery(name = "Batch.findByLastUpdate", query = "SELECT b FROM Batch b WHERE b.lastUpdate = :lastUpdate")})
+    , @NamedQuery(name = "Batch.findByLastupdate", query = "SELECT b FROM Batch b WHERE b.lastupdate = :lastupdate")})
 public class Batch implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,8 +56,7 @@ public class Batch implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "period")
-    @DateTimeFormat(pattern = "yyyy-dd-mm")
-    @Temporal(TemporalType.DATE)    
+    @Temporal(TemporalType.DATE)
     private Date period;
     @Basic(optional = false)
     @NotNull
@@ -70,13 +68,13 @@ public class Batch implements Serializable {
     @Column(name = "isdelete")
     private String isdelete;
     @Basic(optional = false)
-//    @NotNull
-    @Column(name = "last_update")
+    @NotNull
+    @Column(name = "lastupdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdate;
-    @JoinColumn(name = "class", referencedColumnName = "id")
+    private Date lastupdate;
+    @JoinColumn(name = "classid", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Class class1;
+    private Class classid;
 
     public Batch() {
     }
@@ -85,13 +83,13 @@ public class Batch implements Serializable {
         this.id = id;
     }
 
-    public Batch(Integer id, String batch, Date period, int trainer, String isdelete, Date lastUpdate) {
+    public Batch(Integer id, String batch, Date period, int trainer, String isdelete, Date lastupdate) {
         this.id = id;
         this.batch = batch;
         this.period = period;
         this.trainer = trainer;
         this.isdelete = isdelete;
-        this.lastUpdate = lastUpdate;
+        this.lastupdate = lastupdate;
     }
 
     public Integer getId() {
@@ -134,20 +132,20 @@ public class Batch implements Serializable {
         this.isdelete = isdelete;
     }
 
-    public Date getLastUpdate() {
-        return lastUpdate;
+    public Date getLastupdate() {
+        return lastupdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setLastupdate(Date lastupdate) {
+        this.lastupdate = lastupdate;
     }
 
-    public Class getClass1() {
-        return class1;
+    public Class getClassid() {
+        return classid;
     }
 
-    public void setClass1(Class class1) {
-        this.class1 = class1;
+    public void setClassid(Class classid) {
+        this.classid = classid;
     }
 
     @Override

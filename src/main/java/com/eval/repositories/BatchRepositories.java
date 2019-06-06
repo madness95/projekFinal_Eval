@@ -18,6 +18,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BatchRepositories extends CrudRepository<Batch, Integer>{
-    @Query(value = "SELECT * FROM `batch` WHERE `isdelete` = 'false'", nativeQuery = true)
+    @Query(value = "SELECT * FROM batch b JOIN class c ON b.classid = c.id WHERE b.isdelete = 'false'", nativeQuery = true)
     List<Batch> getAll();
 }
