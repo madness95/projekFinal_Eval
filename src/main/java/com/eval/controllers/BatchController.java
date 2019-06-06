@@ -49,7 +49,7 @@ public class BatchController    {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class,
-                new CustomDateEditor(new SimpleDateFormat("yyyy-mm-dd"), true, 10));
+                new CustomDateEditor(new SimpleDateFormat("yyyy-dd-mm"), true));
     }
 
     @GetMapping("/batchcontroller/all")

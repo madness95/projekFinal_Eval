@@ -57,7 +57,7 @@ public class Batch implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "period")
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-dd-mm")
     @Temporal(TemporalType.DATE)    
     private Date period;
     @Basic(optional = false)
