@@ -6,6 +6,8 @@
 package com.eval.repositories;
 
 import com.eval.entities.Employee;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EmployeeRepositories extends CrudRepository<Employee, Integer>{
-    
+    @Query(value = "SELECT * FROM employees e WHERE e.isdelete = 'false'", nativeQuery = true)
+    List<Employee> getAll();
 }

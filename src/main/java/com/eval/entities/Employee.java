@@ -7,9 +7,7 @@ package com.eval.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,15 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -46,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
     , @NamedQuery(name = "Employee.findByPhoneNumber", query = "SELECT e FROM Employee e WHERE e.phoneNumber = :phoneNumber")
     , @NamedQuery(name = "Employee.findByBirthdate", query = "SELECT e FROM Employee e WHERE e.birthdate = :birthdate")
-    , @NamedQuery(name = "Employee.findByTrainer", query = "SELECT e FROM Employee e WHERE e.trainer = :trainer")
+    , @NamedQuery(name = "Employee.findByHiredate", query = "SELECT e FROM Employee e WHERE e.hiredate = :hiredate")
     , @NamedQuery(name = "Employee.findByIsdelete", query = "SELECT e FROM Employee e WHERE e.isdelete = :isdelete")
     , @NamedQuery(name = "Employee.findByLastUpdate", query = "SELECT e FROM Employee e WHERE e.lastUpdate = :lastUpdate")})
 public class Employee implements Serializable {
@@ -86,10 +82,15 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "birthdate")
+    @DateTimeFormat(pattern = "YYY-mm-dd")
     @Temporal(TemporalType.DATE)
     private Date birthdate;
-    @Column(name = "trainer")
-    private Integer trainer;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "hiredate")
+    @DateTimeFormat(pattern = "YYY-mm-dd")
+    @Temporal(TemporalType.DATE)
+    private Date hiredate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 5)
@@ -100,16 +101,6 @@ public class Employee implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
-    private List<Exam> examList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
-    private List<Task> taskList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<Assignment> assignmentList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private AuthUser authUser;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
-    private List<GradeEmp> gradeEmpList;
     @JoinColumn(name = "batchclass", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Batch batchclass;
@@ -127,7 +118,7 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(Integer id, String firstName, String lastName, String email, String password, String phoneNumber, Date birthdate, String isdelete, Date lastUpdate) {
+    public Employee(Integer id, String firstName, String lastName, String email, String password, String phoneNumber, Date birthdate, Date hiredate, String isdelete, Date lastUpdate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -135,6 +126,7 @@ public class Employee implements Serializable {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.birthdate = birthdate;
+        this.hiredate = hiredate;
         this.isdelete = isdelete;
         this.lastUpdate = lastUpdate;
     }
@@ -195,12 +187,12 @@ public class Employee implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public Integer getTrainer() {
-        return trainer;
+    public Date getHiredate() {
+        return hiredate;
     }
 
-    public void setTrainer(Integer trainer) {
-        this.trainer = trainer;
+    public void setHiredate(Date hiredate) {
+        this.hiredate = hiredate;
     }
 
     public String getIsdelete() {
@@ -217,50 +209,6 @@ public class Employee implements Serializable {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
-    }
-
-    @XmlTransient
-    public List<Exam> getExamList() {
-        return examList;
-    }
-
-    public void setExamList(List<Exam> examList) {
-        this.examList = examList;
-    }
-
-    @XmlTransient
-    public List<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(List<Task> taskList) {
-        this.taskList = taskList;
-    }
-
-    @XmlTransient
-    public List<Assignment> getAssignmentList() {
-        return assignmentList;
-    }
-
-    public void setAssignmentList(List<Assignment> assignmentList) {
-        this.assignmentList = assignmentList;
-    }
-
-    public AuthUser getAuthUser() {
-        return authUser;
-    }
-
-    public void setAuthUser(AuthUser authUser) {
-        this.authUser = authUser;
-    }
-
-    @XmlTransient
-    public List<GradeEmp> getGradeEmpList() {
-        return gradeEmpList;
-    }
-
-    public void setGradeEmpList(List<GradeEmp> gradeEmpList) {
-        this.gradeEmpList = gradeEmpList;
     }
 
     public Batch getBatchclass() {

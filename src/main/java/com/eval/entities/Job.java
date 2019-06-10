@@ -36,6 +36,17 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Job.findByIsdelete", query = "SELECT j FROM Job j WHERE j.isdelete = :isdelete")})
 public class Job implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "name")
+    private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "isdelete")
+    private String isdelete;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -43,16 +54,6 @@ public class Job implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "name")
-    private String name;
-    @Basic(optional = false)
-//    @NotNull
-    @Size(min = 1, max = 5)
-    @Column(name = "isdelete")
-    private String isdelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "job", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
@@ -77,21 +78,6 @@ public class Job implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIsdelete() {
-        return isdelete;
-    }
-
-    public void setIsdelete(String isdelete) {
-        this.isdelete = isdelete;
-    }
 
     @XmlTransient
     public List<Employee> getEmployeeList() {
@@ -125,6 +111,22 @@ public class Job implements Serializable {
     @Override
     public String toString() {
         return "com.eval.entities.Job[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(String isdelete) {
+        this.isdelete = isdelete;
     }
     
 }

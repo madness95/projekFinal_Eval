@@ -6,33 +6,17 @@
 package com.eval.controllers;
 
 import com.eval.entities.Batch;
-import com.eval.entities.Department;
-import com.eval.entities.Grade;
-import com.eval.entities.Job;
 import com.eval.repositories.BatchRepositories;
-import com.eval.repositories.DepartmentRepositories;
-import com.eval.repositories.GradeRepositories;
-import com.eval.repositories.JobRepositories;
+import com.eval.repositories.ClassRepositories;
 import com.eval.services.BatchServices;
-import com.eval.services.DepartmentServices;
-import com.eval.services.GradeServices;
-import com.eval.services.JobServices;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.eval.services.ClassServices;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -45,16 +29,21 @@ public class BatchController    {
     private BatchRepositories batchRepositories;
     @Autowired
     private BatchServices batchServices;
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class,
-                new CustomDateEditor(new SimpleDateFormat("yyyy-dd-mm"), true));
-    }
+    @Autowired
+    private ClassRepositories classRepositories;
+    @Autowired
+    private ClassServices classServices;
+    
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.registerCustomEditor(Date.class,
+//                new CustomDateEditor(new SimpleDateFormat("yyyy-dd-mm"), true));
+//    }
 
     @GetMapping("/batchcontroller/all")
     public String index(Model model) {
         model.addAttribute("dataBatch", batchServices.getAll());
+        model.addAttribute("dataClass", classServices.getAll());
         return "indexBatch";
     }
 

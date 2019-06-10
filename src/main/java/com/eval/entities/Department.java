@@ -37,22 +37,23 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Department.findByIsdelete", query = "SELECT d FROM Department d WHERE d.isdelete = :isdelete")})
 public class Department implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-//    @NotNull
+    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
@@ -77,21 +78,6 @@ public class Department implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIsdelete() {
-        return isdelete;
-    }
-
-    public void setIsdelete(String isdelete) {
-        this.isdelete = isdelete;
-    }
 
     @XmlTransient
     public List<Employee> getEmployeeList() {
@@ -125,6 +111,22 @@ public class Department implements Serializable {
     @Override
     public String toString() {
         return "com.eval.entities.Department[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(String isdelete) {
+        this.isdelete = isdelete;
     }
     
 }

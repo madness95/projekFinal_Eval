@@ -74,23 +74,32 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Phone Number</th>
+                                <th>Date of Birth</th>
+                                <th>Job</th>
+                                <th>Department</th>
                                 <th>Batch</th>
-                                <th>Class Id</th>
-                                <!--<th>Class Name</th>-->
-                                <th>Period</th>
-                                <th>Trainer</th>
                                 <!--<th>isdelete</th>-->
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each = "data:${dataBatch}">
-                                <td id="id" th:text="${data.id}"></td>
-                                <td id="bacth" th:text="${data.batch}"></td>
-                                <td id="class" th:text="${data.classid.name}"></td>                                
+                            <tr th:each = "data:${dataEmp}">
+                                <td id="_Id" th:text="${data.id}"></td>
+                                <td id="_FirstName" th:text="${data.firstname}"></td>                                
                                 <!--<td id="_ClassName" th:text="${data.classid.name}"></td>-->                                
-                                <td id="period" th:text="${data.period}"></td>                                
-                                <td id="trainer" th:text="${data.trainer}"></td>
+                                <td id="_LastName" th:text="${data.lastname}"></td>
+                                <td id="_Email" th:text="${data.email}"></td>                                
+                                <td id="_Password" th:text="${data.password}"></td>
+                                <td id="_Birthdate" th:text="${data.birthdate}"></td>
+                                <td id="_Hiredate" th:text="${data.hiredate}"></td>
+                                <td id="_Job" th:text="${data.job}"></td>
+                                <td id="_Department" th:text="${data.department}"></td>
+                                <td id="_Batch" th:text="${data.batchclass}"></td>
                                 <td id="_isdelete" th:text="${data.isdelete}"></td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#update"><i class="fa fedit-aca-edit"></i>
@@ -114,7 +123,7 @@
                         <h4 class="modal-title">Add Batch</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
-                    <form th:action="@{/BatchController/addData}" method="post">
+                    <form th:action="@{/EmpController/addData}" method="post">
                         <!--                        <div class="form-group required">
                                                     <label for="id" class="col-form-label col-md-4">ID</label>
                                                     <div class="col-md-8">
@@ -122,48 +131,68 @@
                                                     </div>
                                                 </div>-->
                         <div class="form-group required">
-                            <label for="batch" class="col-form-label col-md-4">Batch</label>
+                            <label for="firstname" class="col-form-label col-md-4">First Name</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="Batch" name="batch" placeholder="Batch">
-                            </div>
-                        </div>
-                        <!--                        <div class="form-group required">
-                                                    <label for="class" class="col-form-label col-md-4">Class</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="ClassId" name="classid" placeholder="Class Name">
-                                                    </div>
-                                                </div>-->
-                        <div class="row"> 
-                            <div class="col-md-6"> 
-                                <div class="form-group required"> 
-                                    <label for="classid" class="col-form-label col-md-4">Class</label> 
-                                    <div class="col-md-10"> 
-                                        <select type="text" name="classid" id="ClassId" class="form-control" > 
-                                            <option value="0">-PILIH-</option> 
-                                            <option th:each="data:${dataClass}" th:value="${data.id}" th:text="${data.name}"></option> 
-                                        </select> 
-                                    </div> 
-                                </div> 
+                                <input type="text" class="form-control" id="FirstName" name="firstname" placeholder="Batch">
                             </div>
                         </div>
                         <div class="form-group required">
-                            <label for="period" class="col-form-label col-md-4">Period</label>
+                            <label for="lastname" class="col-form-label col-md-4">Last Name</label>
                             <div class="col-md-8">
-                                <input type="date" class="form-control" id="Period" name="period" placeholder="">
+                                <input type="text" class="form-control" id="LastName" name="lastname" placeholder="Class Name">
                             </div>
                         </div>
                         <div class="form-group required">
-                            <label for="trainer" class="col-form-label col-md-4">Trainer</label>
+                            <label for="email" class="col-form-label col-md-4">Email</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="Trainer" name="trainer" placeholder="Trainer">
+                                <input type="text" class="form-control" id="Email" name="email" placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group required">
-                            <label for="trainer" class="col-form-label col-md-4" hidden="">Last Update</label>
+                            <label for="password" class="col-form-label col-md-4">Password</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="lastupdate" name="lastupdate" placeholder="" hidden="">
+                                <input type="text" class="form-control" id="Password" name="password" placeholder="Trainer">
                             </div>
                         </div>
+                        <div class="form-group required">
+                            <label for="birthdate" class="col-form-label col-md-4" hidden="">Birth Date</label>
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" id="BirthDate" name="birthdate" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="hiredate" class="col-form-label col-md-4" hidden="">Hire Date</label>
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" id="HireDate" name="hiredate" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group required"> 
+                            <label for="job" class="col-form-label col-md-4">Job</label> 
+                            <div class="col-md-10"> 
+                                <select type="text" name="job" id="Job" class="form-control" > 
+                                    <option value="0">-PILIH-</option> 
+                                    <option th:each="data:${dataJob}" th:value="${data.id}" th:text="${data.name}"></option> 
+                                </select> 
+                            </div> 
+                        </div> 
+                        <div class="form-group required"> 
+                            <label for="department" class="col-form-label col-md-4">Department</label> 
+                            <div class="col-md-10"> 
+                                <select type="text" name="department" id="Department" class="form-control" > 
+                                    <option value="0">-PILIH-</option> 
+                                    <option th:each="data:${dataDept}" th:value="${data.id}" th:text="${data.name}"></option> 
+                                </select> 
+                            </div> 
+                        </div>
+                        <div class="form-group required"> 
+                            <label for="batch" class="col-form-label col-md-4">Batch</label> 
+                            <div class="col-md-10"> 
+                                <select type="text" name="batch" id="Batch" class="form-control" > 
+                                    <option value="0">-PILIH-</option> 
+                                    <option th:each="data:${dataBatch}" th:value="${data.id}" th:text="${data.batch}"></option> 
+                                </select> 
+                            </div> 
+                        </div> 
                         <!--                        <div class="form-group required">
                                                     <label for="isdelete" class="col-form-label col-md-4">isdelete</label>
                                                     <div class="col-md-8">
@@ -225,7 +254,7 @@
                 </div>-->
 
         <div class="update-form">
-            <form th:action="@{/ClassController/update/id}" method="post">
+            <form th:action="@{/EmpController/update/id}" method="post">
                 <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -238,46 +267,72 @@
                             <div class="modal-body">
                                 <!--                                <span id="actor_Id"></span>-->
                                 <div class="form-group required">
-                                    <label for="batch" class="col-form-label col-md-4">Batch</label>
+                                    <label for="firstname" class="col-form-label col-md-4">First Name</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="batch" name="batch" placeholder="Batch">
-                                    </div>
-                                </div>
-                                <!--                                <div class="form-group required">
-                                                                    <label for="class" class="col-form-label col-md-4">Class</label>
-                                                                    <div class="col-md-8">
-                                                                        <input type="text" class="form-control" id="_Class" name="class" placeholder="Class Name">
-                                                                    </div>
-                                                                </div>-->
-<!--                                <div class="row"> 
-                                    <div class="col-md-6"> -->
-                                        <div class="form-group required"> 
-                                            <label for="classid" class="col-form-label col-md-4">Class</label> 
-                                            <div class="col-md-10"> 
-                                                <select type="text" name="classid" id="classid" class="form-control" > 
-                                                    <option value="0">-PILIH-</option> 
-                                                    <option th:each="data:${dataClass}" th:value="${data.id}" th:text="${data.name}"></option> 
-                                                </select> 
-                                            </div> 
-                                        </div> 
-<!--                                    </div>
-                                </div>-->
-                                <div class="form-group required">
-                                    <label for="period" class="col-form-label col-md-4">Period</label>
-                                    <div class="col-md-8">
-                                        <input type="date" class="form-control" id="period" name="period" placeholder="">
+                                        <input type="text" class="form-control" id="_FirstName" name="firstname" placeholder="Batch">
                                     </div>
                                 </div>
                                 <div class="form-group required">
-                                    <label for="trainer" class="col-form-label col-md-4">Trainer</label>
+                                    <label for="lastname" class="col-form-label col-md-4">Last Name</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="trainer" name="trainer" placeholder="Trainer">
+                                        <input type="text" class="form-control" id="_LastName" name="lastname" placeholder="Class Name">
                                     </div>
                                 </div>
+                                <div class="form-group required">
+                                    <label for="email" class="col-form-label col-md-4">Email</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="_Email" name="email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="password" class="col-form-label col-md-4">Password</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="_Password" name="password" placeholder="Trainer">
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="birthdate" class="col-form-label col-md-4" hidden="">Birth Date</label>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control" id="_BirthDate" name="birthdate" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="hiredate" class="col-form-label col-md-4" hidden="">Hire Date</label>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control" id="_HireDate" name="hiredate" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group required"> 
+                                    <label for="job" class="col-form-label col-md-4">Job</label> 
+                                    <div class="col-md-10"> 
+                                        <select type="text" name="job" id="_Job" class="form-control" > 
+                                            <option value="0">-PILIH-</option> 
+                                            <option th:each="data:${dataJob}" th:value="${data.id}" th:text="${data.name}"></option> 
+                                        </select> 
+                                    </div> 
+                                </div> 
+                                <div class="form-group required"> 
+                                    <label for="department" class="col-form-label col-md-4">Department</label> 
+                                    <div class="col-md-10"> 
+                                        <select type="text" name="department" id="_Department" class="form-control" > 
+                                            <option value="0">-PILIH-</option> 
+                                            <option th:each="data:${dataDept}" th:value="${data.id}" th:text="${data.name}"></option> 
+                                        </select> 
+                                    </div> 
+                                </div>
+                                <div class="form-group required"> 
+                                    <label for="batch" class="col-form-label col-md-4">Batch</label> 
+                                    <div class="col-md-10"> 
+                                        <select type="text" name="batch" id="_Batch" class="form-control" > 
+                                            <option value="0">-PILIH-</option> 
+                                            <option th:each="data:${dataBatch}" th:value="${data.id}" th:text="${data.batch}"></option> 
+                                        </select> 
+                                    </div> 
+                                </div> 
                                 <div class="form-group required">
                                     <label for="trainer" class="col-form-label col-md-4"></label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="last_update" name="last_update" placeholder="" hidden="">
+                                        <input type="text" class="form-control" id="_lastupdate" name="last_update" placeholder="" hidden="">
                                     </div>
                                 </div>
                                 <!--                                                                <div class="form-group required">
@@ -296,7 +351,7 @@
         </div>
 
         <div class="delete-form">
-            <form th:action="@{/BatchController/softdelete/id}" method="get">
+            <form th:action="@{/EmpController/softdelete/id}" method="get">
                 <div class="modal fade" id="softdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -307,13 +362,13 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" class="form-control" id="_Id" name="id" readonly>
-                                <input type="hidden" class="form-control" id="_Batch" name="batch">
-                                <input type="hidden" class="form-control" id="_Class" name="class">
-                                <input type="hidden" class="form-control" id="_Period" name="period">
-                                <input type="hidden" class="form-control" id="_Trainer" name="trainer">
-                                <!--<input type="hidden" class="form-control" id="lastupdate" name="lastupdate">-->
-                                <input type="hidden" class="form-control" id="is_delete" value="true" name="isDelete" placeholder="Delete">
+                                <input type="hidden" class="form-control" id="id" name="id" readonly>
+                                <input type="hidden" class="form-control" id="bacth" name="batch">
+                                <input type="hidden" class="form-control" id="class" name="class">
+                                <input type="hidden" class="form-control" id="period" name="period">
+                                <input type="hidden" class="form-control" id="trainer" name="trainer">
+                                <input type="hidden" class="form-control" id="lastupdate" name="lastupdate">
+                                <!--<input type="hidden" class="form-control" id="isDelete" value="true" name="isDelete" placeholder="Delete">-->
                                 Anda yakin ingin menghapus data ini?
                             </div>
                             <div class="modal-footer">
@@ -356,18 +411,18 @@
                     var _button = $(e.relatedTarget);
                     var _row = _button.parents("tr");
 
-                    var id = _row.find("#id").text();
-                    var batch = _row.find("#batch").text();
-                    var classid = _row.find("#classid").text();
-                    var period = _row.find("#period").text();
-                    var trainer = _row.find("#trainer").text();
+                    var _Id = _row.find("#_Id").text();
+                    var _Class = _row.find("#_Class").text();
+                    var _Batch = _row.find("#_Batch").text();
+                    var _Period = _row.find("#_Period").text();
+                    var _Trainer = _row.find("#_Trainer").text();
                     var _isdelete = _row.find("#is_delete").text();
 
-                    $(this).find("#id").val(id);
-                    $(this).find("#batch").val(batch);
-                    $(this).find("#classid").val(classid);
-                    $(this).find("#period").val(period);
-                    $(this).find("#trainer").val(trainer);
+                    $(this).find("#_Id").val(_Id);
+                    $(this).find("#_Class").val(_Class);
+                    $(this).find("#_Batch").val(_Batch);
+                    $(this).find("#_Period").val(_Period);
+                    $(this).find("#_Trainer").val(_Trainer);
                     $(this).find("#is_delete").val(_isdelete);
 
 //                    alert($(this).find("#actor_Id").text());
@@ -383,19 +438,11 @@
                     var _button = $(e.relatedTarget);
                     var _row = _button.parents("tr");
 
-                    var _Id = _row.find("#_Id").text();
-                    var _Class = _row.find("#_Class").text();
-                    var _Batch = _row.find("#_Batch").text();
-                    var _Period = _row.find("#_Period").text();
-                    var _Trainer = _row.find("#_Trainer").text();
-                    var _isdelete = _row.find("#is_delete").text();
+                    var _id_ = _row.find("#_Id").text();
+                    var _name_ = _row.find("#_Name").text();
 
-                    $(this).find("#_Id").val(_Id);
-                    $(this).find("#_Class").val(_Class);
-                    $(this).find("#_Batch").val(_Batch);
-                    $(this).find("#_Period").val(_Period);
-                    $(this).find("#_Trainer").val(_Trainer);
-                    $(this).find("#is_delete").val(_isdelete);
+                    $(this).find("#id").val(_id_);
+                    $(this).find("#name").val(_name_);
 
 //                    alert($(this).find("#actor_Id").text());
 //                    alert($(this).find("#first_Name").text());

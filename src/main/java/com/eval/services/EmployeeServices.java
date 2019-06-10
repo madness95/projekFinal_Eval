@@ -5,7 +5,9 @@
  */
 package com.eval.services;
 
+import com.eval.entities.Employee;
 import com.eval.repositories.EmployeeRepositories;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 public class EmployeeServices {
     @Autowired
     private EmployeeRepositories employeeRepositories;
+    
+    public List<Employee> getAll() {
+        return employeeRepositories.getAll();
+    }
 }

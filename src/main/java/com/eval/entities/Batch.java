@@ -7,6 +7,7 @@ package com.eval.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,12 +19,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -42,12 +46,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Batch.findByLastupdate", query = "SELECT b FROM Batch b WHERE b.lastupdate = :lastupdate")})
 public class Batch implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -56,20 +54,30 @@ public class Batch implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "period")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)    
     private Date period;
     @Basic(optional = false)
     @NotNull
     @Column(name = "trainer")
     private int trainer;
     @Basic(optional = false)
-//    @NotNull
+    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
+    @OneToMany(mappedBy = "batchclass", fetch = FetchType.LAZY)
+    private Set<Employee> employeeSet;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+//    @NotNull
     @Column(name = "lastupdate")
+    @DateTimeFormat (pattern = "YYYY-mm-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastupdate;
     @JoinColumn(name = "classid", referencedColumnName = "id")
@@ -100,37 +108,6 @@ public class Batch implements Serializable {
         this.id = id;
     }
 
-    public String getBatch() {
-        return batch;
-    }
-
-    public void setBatch(String batch) {
-        this.batch = batch;
-    }
-
-    public Date getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Date period) {
-        this.period = period;
-    }
-
-    public int getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(int trainer) {
-        this.trainer = trainer;
-    }
-
-    public String getIsdelete() {
-        return isdelete;
-    }
-
-    public void setIsdelete(String isdelete) {
-        this.isdelete = isdelete;
-    }
 
     public Date getLastupdate() {
         return lastupdate;
@@ -171,6 +148,47 @@ public class Batch implements Serializable {
     @Override
     public String toString() {
         return "com.eval.entities.Batch[ id=" + id + " ]";
+    }
+
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
+    }
+
+    public Date getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Date period) {
+        this.period = period;
+    }
+
+    public int getTrainer() {
+        return trainer;
+    }
+
+    public void setTrainer(int trainer) {
+        this.trainer = trainer;
+    }
+
+    public String getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(String isdelete) {
+        this.isdelete = isdelete;
+    }
+
+    @XmlTransient
+    public Set<Employee> getEmployeeSet() {
+        return employeeSet;
+    }
+
+    public void setEmployeeSet(Set<Employee> employeeSet) {
+        this.employeeSet = employeeSet;
     }
     
 }
