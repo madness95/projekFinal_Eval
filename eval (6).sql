@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2019 at 01:38 PM
+-- Generation Time: Jun 10, 2019 at 03:46 AM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.3.5
 
@@ -59,20 +59,21 @@ CREATE TABLE `auth_user` (
 
 CREATE TABLE `batch` (
   `id` int(10) NOT NULL,
-  `class` int(10) NOT NULL,
+  `classid` int(10) NOT NULL,
   `batch` varchar(10) NOT NULL,
   `period` date NOT NULL,
   `trainer` int(10) NOT NULL,
   `isdelete` enum('true','false') NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `lastupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `batch`
 --
 
-INSERT INTO `batch` (`id`, `class`, `batch`, `period`, `trainer`, `isdelete`, `last_update`) VALUES
-(26, 1, '25', '2019-01-05', 2, 'false', '2019-06-06 11:28:50');
+INSERT INTO `batch` (`id`, `classid`, `batch`, `period`, `trainer`, `isdelete`, `lastupdate`) VALUES
+(33, 1, '25', '2018-12-30', 2, 'false', '2019-06-09 17:07:50'),
+(34, 1, '29', '2018-12-30', 2, 'false', '2019-06-09 17:14:08');
 
 -- --------------------------------------------------------
 
@@ -131,10 +132,10 @@ CREATE TABLE `employees` (
   `password` varchar(60) NOT NULL,
   `phone_number` varchar(12) NOT NULL,
   `birthdate` date NOT NULL,
+  `hiredate` date NOT NULL,
   `job` varchar(20) NOT NULL,
   `department` int(20) DEFAULT NULL,
   `batchclass` int(20) DEFAULT NULL,
-  `trainer` int(20) DEFAULT NULL,
   `isdelete` enum('true','false') NOT NULL DEFAULT 'false',
   `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -298,7 +299,7 @@ ALTER TABLE `auth_user`
 --
 ALTER TABLE `batch`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `class_batch` (`class`);
+  ADD KEY `class_batch` (`classid`);
 
 --
 -- Indexes for table `class`
@@ -383,7 +384,7 @@ ALTER TABLE `auth_user`
 -- AUTO_INCREMENT for table `batch`
 --
 ALTER TABLE `batch`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `class`
@@ -454,7 +455,7 @@ ALTER TABLE `auth_user`
 -- Constraints for table `batch`
 --
 ALTER TABLE `batch`
-  ADD CONSTRAINT `class_batch` FOREIGN KEY (`class`) REFERENCES `class` (`id`);
+  ADD CONSTRAINT `class_batch` FOREIGN KEY (`classid`) REFERENCES `class` (`id`);
 
 --
 -- Constraints for table `employees`
