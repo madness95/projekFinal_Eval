@@ -69,6 +69,14 @@
                                     <span data-feather="file"></span>
                                     Job
                                 </a>
+                                <a class="nav-link " th:href="@{/admin/auth/all}">
+                                    <span data-feather="file"></span>
+                                    Authtority User
+                                </a>
+                                <a class="nav-link " th:href="@{/admin/assign/all}">
+                                    <span data-feather="file"></span>
+                                                                        Assignment
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -128,7 +136,7 @@
                         <h4 class="modal-title">Add Job</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
-                    <form th:action="@{/JobController/addDataJob}" method="post">
+                    <form th:action="@{/admin/JobController/addDataJob}" method="post">
 
                         <div class="form-group required">
                             <label for="id" class="col-form-label col-md-4">Job ID</label>
@@ -203,7 +211,7 @@
                 </div>-->
 
         <div class="update-form">
-            <form th:action="@{/JobController/updateJob/id}" method="post">
+            <form th:action="@{/admin/JobController/updateJob/id}" method="post">
                 <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -239,7 +247,7 @@
         </div>
 
         <div class="delete-form">
-            <form th:action="@{/JobController/softdelete/id}" method="get">
+            <form th:action="@{/admin/JobController/softdelete/id}" method="get">
                 <div class="modal fade" id="softdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">

@@ -41,7 +41,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link active" th:href="@{/admin/role/all}">
+                                <a class="nav-link active" th:href="@{/admin/role/all}">
                                     <span data-feather="file"></span>
                                     Role
                                 </a>
@@ -68,6 +68,14 @@
                                 <a class="nav-link " th:href="@{/admin/job/all}">
                                     <span data-feather="file"></span>
                                     Job
+                                </a>
+                                <a class="nav-link " th:href="@{/admin/auth/all}">
+                                    <span data-feather="file"></span>
+                                    Authtority User
+                                </a>
+                                <a class="nav-link " th:href="@{/admin/assign/all}">
+                                    <span data-feather="file"></span>
+                                    Assignment
                                 </a>
                             </li>
                         </ul>
@@ -130,12 +138,12 @@
                     </div>
                     <form th:action="@{/GradeController/addDataGrade}" method="post">
 
-<!--                        <div class="form-group required">
-                            <label for="id" class="col-form-label col-md-4">ID</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" id="gradeId" name="id" placeholder="Grade Id">
-                            </div>
-                        </div>-->
+                        <!--                        <div class="form-group required">
+                                                    <label for="id" class="col-form-label col-md-4">ID</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" id="gradeId" name="id" placeholder="Grade Id">
+                                                    </div>
+                                                </div>-->
                         <div class="form-group required">
                             <label for="name" class="col-form-label col-md-4">Grade</label>
                             <div class="col-md-8">
@@ -250,10 +258,10 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                    <input type="hidden" class="form-control" id="gradeid" name="id" readonly>
-                                    <input type="hidden" class="form-control" id="gradename" name="name">
-                                    <!--<input type="hidden" class="form-control" id="isDelete" value="true" name="isDelete" placeholder="Delete">-->
-                                    Anda yakin ingin menghapus data ini?
+                                <input type="hidden" class="form-control" id="gradeid" name="id" readonly>
+                                <input type="hidden" class="form-control" id="gradename" name="name">
+                                <!--<input type="hidden" class="form-control" id="isDelete" value="true" name="isDelete" placeholder="Delete">-->
+                                Anda yakin ingin menghapus data ini?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -264,8 +272,8 @@
                 </div>
             </form>
         </div>
-        
-        
+
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -307,7 +315,7 @@
             })
         </script>
 
-         <script>
+        <script>
             $(document).ready(function () {
                 $("#softdelete").on('show.bs.modal', function (e) {
                     var _button = $(e.relatedTarget);

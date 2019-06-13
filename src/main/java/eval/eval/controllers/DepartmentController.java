@@ -51,7 +51,7 @@ public class DepartmentController {
         departmentRepositories.save(department);
 //        model.addAttribute("dataActor", filmActorService.findAllActor());
 //        return "index";
-        return "redirect:/department/all";
+        return "redirect:/admin/department/all";
     }
 
 //    @RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -59,13 +59,13 @@ public class DepartmentController {
     public String upadateData(@PathVariable("id") String id, @Valid Department department) {
         department.setIsdelete("false");
         departmentRepositories.save(department);
-        return "redirect:/department/all";
+        return "redirect:/admin/department/all";
     }
 
     @GetMapping("/DepartmentController/softdelete/{id}")
     public String softDelete(@PathVariable("id") String id, Department department) {
         department.setIsdelete("true");
         departmentRepositories.save(department);
-        return "redirect:/department/all";
+        return "redirect:/admin/department/all";
     }
 }

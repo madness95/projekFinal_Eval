@@ -64,7 +64,7 @@ public class JobController {
         jobRepositories.save(job);
 //        model.addAttribute("dataActor", filmActorService.findAllActor());
 //        return "index";
-        return "redirect:/job/all";
+        return "redirect:/admin/job/all";
     }
 
 //    @RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -72,14 +72,14 @@ public class JobController {
     public String upadateData(@PathVariable("id") String id, @Valid Job job) {
         job.setIsdelete("false");
         jobRepositories.save(job);
-        return "redirect:/job/all";
+        return "redirect:/admin/job/all";
     }
 
     @GetMapping("/JobController/softdelete/{id}")
     public String softDelete(@PathVariable("id") String id, Job job) {
         job.setIsdelete("true");
         jobRepositories.save(job);
-        return "redirect:/job/all";
+        return "redirect:/admin/job/all";
     }
 //    @GetMapping("/delete/{id}")
 //    public String deleteActor(@PathVariable("id") Short id, Model model) {

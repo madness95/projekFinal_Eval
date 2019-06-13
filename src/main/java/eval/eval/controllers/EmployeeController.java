@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 /**
  *
  * @author Sofia
@@ -42,7 +41,7 @@ public class EmployeeController {
     private BatchServices batchServices;
 
     @GetMapping("/employee/all")
-    public String index(Model model) {        
+    public String index(Model model) {
         model.addAttribute("dataEmp", employeeServices.getAll());
         model.addAttribute("dataJob", jobServices.getAll());
         model.addAttribute("dataDept", departmentServices.getAll());
@@ -50,6 +49,7 @@ public class EmployeeController {
         return "indexEmp";
     }
 
+//    @RequestMapping(value = "", method = RequestMethod.POST)
     @GetMapping("/EmpController/addData")
     public String addData(Employee employee) {
         employee.setId(0);
@@ -70,8 +70,8 @@ public class EmployeeController {
 
     @GetMapping("/EmpController/softdelete/{id}")
     public String softDelete(@PathVariable("id") String id, Employee employee) {
-        employee.setIsdelete("true");    
+        employee.setIsdelete("true");
         employeeRepositories.save(employee);
-      return "redirect:/admin/employee/all";
+        return "redirect:/admin/employee/all";
     }
 }

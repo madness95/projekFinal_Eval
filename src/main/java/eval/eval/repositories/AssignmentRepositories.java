@@ -6,6 +6,8 @@
 package eval.eval.repositories;
 
 import eval.eval.entities.Assignment;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AssignmentRepositories extends CrudRepository<Assignment, Integer>{
-    
+    @Query(value = "SELECT * FROM assignment WHERE isdelete = 'false'", nativeQuery = true)
+    List<Assignment> getAll();
 }

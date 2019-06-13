@@ -79,8 +79,9 @@ public class Assignment implements Serializable {
     @Column(name = "isdelete")
     private String isdelete;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "last_update")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
     @JoinColumn(name = "uploadby", referencedColumnName = "id")
@@ -202,5 +203,5 @@ public class Assignment implements Serializable {
     public String toString() {
         return "eval.eval.entities.Assignment[ id=" + id + " ]";
     }
-    
+
 }

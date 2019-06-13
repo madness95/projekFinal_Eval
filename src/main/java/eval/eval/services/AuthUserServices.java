@@ -5,9 +5,9 @@
  */
 package eval.eval.services;
 
+import eval.eval.entities.Authuser;
 import eval.eval.repositories.AuthUserRepositories;
-import eval.eval.repositories.EmployeeRepositories;
-import eval.eval.repositories.RoleRepositories;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +19,10 @@ import org.springframework.stereotype.Service;
 public class AuthUserServices {
 
     @Autowired
-    private RoleRepositories roleRepositories;
-
-    @Autowired
-    private EmployeeRepositories employeeRepositories;
-
-    @Autowired
     private AuthUserRepositories authUserRepositories;
+
+      public List<Authuser> getAll() {
+        return authUserRepositories.getAll();
+    }
 
 }

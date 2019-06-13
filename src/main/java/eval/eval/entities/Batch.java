@@ -74,8 +74,9 @@ public class Batch implements Serializable {
     @Column(name = "isdelete")
     private String isdelete;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "lastupdate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastupdate;
     @JoinColumn(name = "classid", referencedColumnName = "id")
@@ -200,5 +201,5 @@ public class Batch implements Serializable {
     public String toString() {
         return "eval.eval.entities.Batch[ id=" + id + " ]";
     }
-    
+
 }

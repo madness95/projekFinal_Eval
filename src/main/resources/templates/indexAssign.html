@@ -7,8 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+
         <link rel="icon" th:href="@{/dist/img/favicons/favicon.ico/}">
         <title>Dashboard Template for Bootstrap</title>
+        <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
         <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}"  media="screen"/>
         <!-- Font Awesome -->
         <link rel="stylesheet" th:href="@{/dist/font-awesome/css/font-awesome.min.css}">
@@ -82,7 +84,7 @@
                     </div>
                 </nav>
 
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <main role="main" class="col-md-50 ml-sm-auto col-lg-10 px-4">
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">Data</h1>
@@ -103,23 +105,31 @@
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Class Name</th>
-                                <!--<th>isdelete</th>-->
                                 <th>Action</th>
+                                <th>No</th>
+                                <th>ID</th>                                
+                                <th>Instruction</th>                                
+                                <th>Date</th>
+                                <th>Deadline</th>
+                                <th>Upload By</th>
+                                <th>Source File</th>
+                                <!--                                <th>isdelete</th>-->
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each = "data:${dataClass}">
-                                <td id="_Id" th:text="${data.id}"></td>
-                                <td id="_Name" th:text="${data.name}"></td>
-                                <!--<td id="is_delete" th:text="${data.isdelete}"></td>-->
+                            <tr th:each = "data:${dataAssign}">
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#update"><i class="fa fedit-aca-edit"></i>
-                                        Edit</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#softdelete"><i class="fa fa-trash"></i>
-                                        Delete</button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#update"><i class="fa fa-edit"></i></button>                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#softdelete"><i class="fa fa-trash"></i></button>                                        </button>
                                 </td>
+                                <td></td>
+                                <td id="id" th:text="${data.id}"></td>
+                                <td id="instruction" th:text="${data.instruction}"></td>
+                                <td id="date" th:text="${data.date}"></td>                                                                
+                                <td id="deadline" th:text="${data.deadline}"></td>                                
+                                <td id="uploadby" th:text="${data.uploadby.id}"></td>
+                                <td id="file" th:text="${data.file}"></td>
+                                <!--<td id="_isdelete" th:text="${data.isdelete}"></td>-->
                             </tr>
                         </tbody>
                     </table>
@@ -136,18 +146,42 @@
                         <h4 class="modal-title">Add Batch</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
-                    <form th:action="@{/admin/ClassController/addData}" method="post">
-
-                        <!--                        <div class="form-group required">
-                                                    <label for="id" class="col-form-label col-md-4">ID</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="Id" name="id" placeholder="Grade Id">
-                                                    </div>
-                                                </div>-->
+                    <form th:action="@{/admin/AssignController/addData}" method="post">                       
                         <div class="form-group required">
-                            <label for="name" class="col-form-label col-md-4">Grade</label>
+                            <label for="instruction" class="col-form-label col-md-4">instruction</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="Name" name="name" placeholder="Class Name">
+                                <input type="text" class="form-control" id="instruction" name="instruction" placeholder="instruction">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="date" class="col-form-label col-md-4">Date</label>
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" id="date" name="date" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="deadline" class="col-form-label col-md-4">Deadline</label>
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" id="deadline" name="deadline" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6"> 
+                                <div class="form-group required"> 
+                                    <label for="uploadby" class="col-form-label col-md-4">Upload By</label> 
+                                    <div class="col-md-10"> 
+                                        <select type="text" name="uploadby" id="employee" class="form-control" > 
+                                            <option value="0">-PILIH-</option> 
+                                            <option th:each="data:${dataEmp}" th:value="${data.id}" th:text="${data.lastname}"></option> 
+                                        </select> 
+                                    </div> 
+                                </div> 
+                            </div>                        
+                        </div>   
+                        <div class="form-group required">
+                            <label for="file" class="col-form-label col-md-4">Source File</label>
+                            <div class="col-md-8">
+                                <input type="file" class="form-control" id="file" name="file" placeholder="">
                             </div>
                         </div>
                         <!--                        <div class="form-group required">
@@ -211,7 +245,7 @@
                 </div>-->
 
         <div class="update-form">
-            <form th:action="@{/admin/ClassController/update/id}" method="post">
+            <form th:action="@{/admin/AssignController/update/id}" method="post">
                 <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -222,19 +256,43 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <!--                                <span id="actor_Id"></span>-->
                                 <div class="form-group required">
-                                    <label for="id" class="col-form-label">ID</label>
-                                    <input type="text" class="form-control" id="_Id" name="id" placeholder="Id" readonly>
+                                    <label for="instruction" class="col-form-label col-md-4">instruction</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="instruction" name="instruction" placeholder="instruction">
+                                    </div>
                                 </div>
                                 <div class="form-group required">
-                                    <label for="name" class="col-form-label">Class Name</label>
-                                    <input type="text" class="form-control" id="_Name" name="name" placeholder="Name">
+                                    <label for="date" class="col-form-label col-md-4">Date</label>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control" id="date" name="date" placeholder="">
+                                    </div>
                                 </div>
-                                <!--                                <div class="form-group required">
-                                                                    <label for="isdelete" class="col-form-label">Last Name</label>
-                                                                    <input type="text" class="form-control" id="is_delete" name="isdelete" placeholder="isdelete">
-                                                                </div>-->
+                                <div class="form-group required">
+                                    <label for="deadline" class="col-form-label col-md-4">Deadline</label>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control" id="deadline" name="deadline" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row"> 
+                                    <div class="col-md-6"> 
+                                        <div class="form-group required"> 
+                                            <label for="uploadby" class="col-form-label col-md-4">Upload By</label> 
+                                            <div class="col-md-10"> 
+                                                <select type="text" name="employee" id="employee" class="form-control" > 
+                                                    <option value="0">-PILIH-</option> 
+                                                    <option th:each="data:${dataEmp}" th:value="${data.id}" th:text="${data.lastname}"></option> 
+                                                </select> 
+                                            </div> 
+                                        </div> 
+                                    </div>                        
+                                </div>   
+                                <div class="form-group required">
+                                    <label for="file" class="col-form-label col-md-4">Source File</label>
+                                    <div class="col-md-8">
+                                        <input type="file" class="form-control" id="file" name="file" placeholder="">
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -247,7 +305,7 @@
         </div>
 
         <div class="delete-form">
-            <form th:action="@{/admin/ClassController/softdelete/id}" method="get">
+            <form th:action="@{/BatchController/softdelete/id}" method="get">
                 <div class="modal fade" id="softdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -259,8 +317,12 @@
                             </div>
                             <div class="modal-body">
                                 <input type="hidden" class="form-control" id="id" name="id" readonly>
-                                <input type="hidden" class="form-control" id="name" name="name">
-                                <!--<input type="hidden" class="form-control" id="isDelete" value="true" name="isDelete" placeholder="Delete">-->
+                                <input type="hidden" class="form-control" id="batch" name="batch">
+                                <input type="hidden" class="form-control" id="class" name="classid">
+                                <input type="hidden" class="form-control" id="period" name="period">
+                                <input type="txt" class="form-control" id="trainer" name="trainer" hidden>
+                                <!--<input type="hidden" class="form-control" id="lastupdate" name="lastupdate">-->
+                                <input type="hidden" class="form-control" id="is_delete" value="true" name="isdelete" placeholder="Delete">
                                 Anda yakin ingin menghapus data ini?
                             </div>
                             <div class="modal-footer">
@@ -282,30 +344,52 @@
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
         <script th:src="@{/dist/js/popper.min.js}"></script>
         <script th:src="@{/dist/js/bootstrap.min.js}"></script>
+        <!--        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
 
 
         <!-- Icons -->
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
             feather.replace()
-        </script>
-        <script>
+        </script>       
+       <script>
             $(document).ready(function () {
-                $('#example').DataTable();
+                var t = $('#example').DataTable({
+                    "columnDefs": [{
+                            "searchable": false,
+                            "orderable": false,
+                            "targets": 0                             
+                        }],
+                   order: [ [0, "asc"] ]
+                });
+
+                t.on('order.dt search.dt', function () {
+                    t.column(1, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             });
-        </script>
+        </script>     
+
         <script>
             $(document).ready(function () {
                 $("#update").on('show.bs.modal', function (e) {
                     var _button = $(e.relatedTarget);
                     var _row = _button.parents("tr");
 
-                    var _Id = _row.find("#_Id").text();
-                    var _Name = _row.find("#_Name").text();
+                    var id = _row.find("#id").text();
+                    var batch = _row.find("#batch").text();
+                    var classid = _row.find("#class").text();
+                    var period = _row.find("#period").text();
+                    var trainer = _row.find("#trainer").text();
                     var _isdelete = _row.find("#is_delete").text();
 
-                    $(this).find("#_Id").val(_Id);
-                    $(this).find("#_Name").val(_Name);
+                    $(this).find("#id").val(id);
+                    $(this).find("#batch").val(batch);
+                    $(this).find("#class").val(classid);
+                    $(this).find("#period").val(period);
+                    $(this).find("#trainer").val(trainer);
                     $(this).find("#is_delete").val(_isdelete);
 
 //                    alert($(this).find("#actor_Id").text());
@@ -321,11 +405,20 @@
                     var _button = $(e.relatedTarget);
                     var _row = _button.parents("tr");
 
-                    var _id_ = _row.find("#_Id").text();
-                    var _name_ = _row.find("#_Name").text();
 
-                    $(this).find("#id").val(_id_);
-                    $(this).find("#name").val(_name_);
+                    var id = _row.find("#id").text();
+                    var batch = _row.find("#batch").text();
+                    var classid = _row.find("#class").text();
+                    var period = _row.find("#period").text();
+                    var trainer = _row.find("#trainer").text();
+                    var _isdelete = _row.find("#is_delete").text();
+
+                    $(this).find("#id").val(id);
+                    $(this).find("#batch").val(batch);
+                    $(this).find("#class").val(classid);
+                    $(this).find("#period").val(period);
+                    $(this).find("#trainer").val(trainer);
+                    $(this).find("#is_delete").val(_isdelete);
 
 //                    alert($(this).find("#actor_Id").text());
 //                    alert($(this).find("#first_Name").text());
@@ -336,4 +429,3 @@
     </body>
 
 </html>
-

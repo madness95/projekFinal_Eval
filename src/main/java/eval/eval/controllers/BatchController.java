@@ -56,7 +56,7 @@ public class BatchController    {
         batchRepositories.save(batch);
 //        model.addAttribute("dataActor", filmActorService.findAllActor());
 //        return "index";
-        return "redirect:/class/all";
+        return "redirect:/admin/batch/all";
     }
 
 //    @RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -64,13 +64,13 @@ public class BatchController    {
     public String upadateData(@PathVariable("id") String id, @Valid Batch batch) {
         batch.setIsdelete("false");
         batchRepositories.save(batch);
-        return "redirect:/class/all";
+        return "redirect:/admin/batch/all";
     }
 
     @GetMapping("/BatchController/softdelete/{id}")
     public String softDelete(@PathVariable("id") String id, Batch batch) {
         batch.setIsdelete("true");
         batchRepositories.save(batch);
-        return "redirect:/class/all";
+        return "redirect:/admin/batch/all";
     }
 }

@@ -71,6 +71,14 @@
                                     <span data-feather="file"></span>
                                     Job
                                 </a>
+                                <a class="nav-link " th:href="@{/admin/auth/all}">
+                                    <span data-feather="file"></span>
+                                    Authtority User
+                                </a>
+                                <a class="nav-link " th:href="@{/admin/assign/all}">
+                                    <span data-feather="file"></span>
+                                    Assigment
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -138,7 +146,7 @@
                         <h4 class="modal-title">Add Batch</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
-                    <form th:action="@{/BatchController/addData}" method="post">
+                    <form th:action="@{/admin/BatchController/addData}" method="post">
                         <!--                        <div class="form-group required">
                                                     <label for="id" class="col-form-label col-md-4">ID</label>
                                                     <div class="col-md-8">
@@ -148,7 +156,7 @@
                         <div class="form-group required">
                             <label for="batch" class="col-form-label col-md-4">Batch</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="Batch" name="batch" placeholder="Batch">
+                                <input type="text" class="form-control" id="batch" name="batch" placeholder="Batch">
                             </div>
                         </div>
                         <!--                        <div class="form-group required">
@@ -249,7 +257,7 @@
                 </div>-->
 
         <div class="update-form">
-            <form th:action="@{/ClassController/update/id}" method="post">
+            <form th:action="@{/admin/BatchController/update/id}" method="post">
                 <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -261,6 +269,12 @@
                             </div>
                             <div class="modal-body">
                                 <!--                                <span id="actor_Id"></span>-->
+                                <div class="form-group required">
+                                    <label for="id" class="col-form-label col-md-4">ID</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="id" name="id" placeholder="ID" readonly="   ">
+                                    </div>
+                                </div>
                                 <div class="form-group required">
                                     <label for="batch" class="col-form-label col-md-4">Batch</label>
                                     <div class="col-md-8">
@@ -278,8 +292,8 @@
                                         <div class="form-group required"> 
                                             <label for="classid" class="col-form-label col-md-4">Class</label> 
                                             <div class="col-md-10"> 
-                                                <select type="text" name="classid" id="classid" class="form-control" > 
-                                                    <option value="0">-PILIH-</option> 
+                                                <select type="text" name="classid" id="class" class="form-control" > 
+                                                    <!--<option value="0">-PILIH-</option>--> 
                                                     <option th:each="data:${dataClass}" th:value="${data.id}" th:text="${data.name}"></option> 
                                                 </select> 
                                             </div> 
@@ -298,12 +312,12 @@
                                         <input type="text" class="form-control" id="trainer" name="trainer" placeholder="Trainer">
                                     </div>
                                 </div>
-                                <div class="form-group required">
+<!--                                <div class="form-group required">
                                     <label for="trainer" class="col-form-label col-md-4"></label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" id="last_update" name="last_update" placeholder="" hidden="">
                                     </div>
-                                </div>
+                                </div>-->
                                 <!--                                                                <div class="form-group required">
                                                                                                     <label for="isdelete" class="col-form-label">Last Name</label>
                                                                                                     <input type="text" class="form-control" id="is_delete" name="isdelete" placeholder="isdelete">
@@ -320,7 +334,7 @@
         </div>
 
         <div class="delete-form">
-            <form th:action="@{/BatchController/softdelete/id}" method="get">
+            <form th:action="@{/admin/BatchController/softdelete/id}" method="get">
                 <div class="modal fade" id="softdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -331,13 +345,13 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" class="form-control" id="_Id" name="id" readonly>
-                                <input type="hidden" class="form-control" id="_Batch" name="batch">
-                                <input type="hidden" class="form-control" id="_Class" name="class">
-                                <input type="hidden" class="form-control" id="_Period" name="period">
-                                <input type="hidden" class="form-control" id="_Trainer" name="trainer">
+                                <input type="hidden" class="form-control" id="id" name="id" readonly>
+                                <input type="hidden" class="form-control" id="batch" name="batch">
+                                <input type="hidden" class="form-control" id="class" name="classid">
+                                <input type="hidden" class="form-control" id="period" name="period">
+                                <input type="txt" class="form-control" id="trainer" name="trainer" hidden>
                                 <!--<input type="hidden" class="form-control" id="lastupdate" name="lastupdate">-->
-                                <input type="hidden" class="form-control" id="is_delete" value="true" name="isDelete" placeholder="Delete">
+                                <input type="hidden" class="form-control" id="is_delete" value="true" name="isdelete" placeholder="Delete">
                                 Anda yakin ingin menghapus data ini?
                             </div>
                             <div class="modal-footer">
@@ -349,6 +363,7 @@
                 </div>
             </form>
         </div>
+
 
 
         <!-- Bootstrap core JavaScript
@@ -395,14 +410,14 @@
 
                     var id = _row.find("#id").text();
                     var batch = _row.find("#batch").text();
-                    var classid = _row.find("#classid").text();
+                    var classid = _row.find("#class").text();
                     var period = _row.find("#period").text();
                     var trainer = _row.find("#trainer").text();
                     var _isdelete = _row.find("#is_delete").text();
 
                     $(this).find("#id").val(id);
                     $(this).find("#batch").val(batch);
-                    $(this).find("#classid").val(classid);
+                    $(this).find("#class").val(classid);
                     $(this).find("#period").val(period);
                     $(this).find("#trainer").val(trainer);
                     $(this).find("#is_delete").val(_isdelete);
@@ -420,18 +435,19 @@
                     var _button = $(e.relatedTarget);
                     var _row = _button.parents("tr");
 
-                    var _Id = _row.find("#_Id").text();
-                    var _Class = _row.find("#_Class").text();
-                    var _Batch = _row.find("#_Batch").text();
-                    var _Period = _row.find("#_Period").text();
-                    var _Trainer = _row.find("#_Trainer").text();
+                   
+                    var id = _row.find("#id").text();
+                    var batch = _row.find("#batch").text();
+                    var classid = _row.find("#class").text();
+                    var period = _row.find("#period").text();
+                    var trainer = _row.find("#trainer").text();
                     var _isdelete = _row.find("#is_delete").text();
 
-                    $(this).find("#_Id").val(_Id);
-                    $(this).find("#_Class").val(_Class);
-                    $(this).find("#_Batch").val(_Batch);
-                    $(this).find("#_Period").val(_Period);
-                    $(this).find("#_Trainer").val(_Trainer);
+                    $(this).find("#id").val(id);
+                    $(this).find("#batch").val(batch);
+                    $(this).find("#class").val(classid);
+                    $(this).find("#period").val(period);
+                    $(this).find("#trainer").val(trainer);
                     $(this).find("#is_delete").val(_isdelete);
 
 //                    alert($(this).find("#actor_Id").text());

@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -51,8 +52,9 @@ public class Authuser implements Serializable {
     @Column(name = "isdelete")
     private String isdelete;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "last_update")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
     @JoinColumn(name = "empid", referencedColumnName = "id")
@@ -139,5 +141,5 @@ public class Authuser implements Serializable {
     public String toString() {
         return "eval.eval.entities.Authuser[ id=" + id + " ]";
     }
-    
+
 }

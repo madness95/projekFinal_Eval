@@ -5,7 +5,9 @@
  */
 package eval.eval.services;
 
+import eval.eval.entities.Assignment;
 import eval.eval.repositories.AssignmentRepositories;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 public class AssignmentServices {
     @Autowired
     private AssignmentRepositories assignmentRepositories;
+    
+    public List<Assignment> getAll() {
+        return assignmentRepositories.getAll();
+    }
 }
