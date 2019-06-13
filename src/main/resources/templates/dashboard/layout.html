@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" th:href="@{/dist/img/favicons/favicon.ico/}">
+        <title layout:title-pattern="$CONTENT_TITLE">EVAL</title>
+        
+        <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}"  media="screen"/>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" th:href="@{/dist/font-awesome/css/font-awesome.min.css}">
+        <!-- Custom styles for this template -->
+        <link th:href="@{/dist/css/dashboard.css}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">EVAL</a>
+            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" th:href="@{/logout}">Sign out</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item active">
+                                <a class="nav-link"th:href="@{/admin/dashboard}">
+                                    <i class="fa fa-home"></i> Dashboard
+                                </a>
+                                <a class="nav-link"th:href="@{/admin/dashboard}">
+                                    <i class="fa fa-home"></i> Dashboard
+                                </a>
+                                <a class="nav-link"th:href="@{/admin/dashboard}">
+                                    <i class="fa fa-home"></i> Dashboard
+                                </a>
+                                <a class="nav-link"th:href="@{/admin/dashboard}">
+                                    <i class="fa fa-home"></i> Dashboard
+                                </a>
+                                <a class="nav-link"th:href="@{/admin/dashboard}">
+                                    <i class="fa fa-home"></i> Dashboard
+                                </a>
+                                <a class="nav-link"th:href="@{/admin/dashboard}">
+                                    <i class="fa fa-home"></i> Dashboard
+                                </a>
+                            </li>
+<!--                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/addData.html}">
+                                    <span data-feather="file"></span>
+                                    Data
+                                </a>
+                            </li>-->
+                        </ul>
+                    </div>
+                </nav>
+
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                    
+                    <div layout:fragment="content">
+<!--                    CONTENT WILL BE HERE-->
+                    </div>
+                    
+                </main>
+                
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script th:src="@{/dist/js/jquery-3.3.1.js}"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <script th:src="@{/dist/js/popper.min.js}"></script>
+        <script th:src="@{/dist/js/bootstrap.min.js}"></script>
+            
+        
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            feather.replace()
+        </script>
+        
+    </body>
+
+</html>
+
