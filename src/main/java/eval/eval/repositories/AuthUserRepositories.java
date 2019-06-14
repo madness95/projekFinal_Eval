@@ -5,7 +5,7 @@
  */
 package eval.eval.repositories;
 
-import eval.eval.entities.AuthUser;
+import eval.eval.entities.Authuser;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author sofia
  */
 @Repository
-public interface AuthUserRepositories extends CrudRepository<AuthUser, Integer>{
+public interface AuthUserRepositories extends CrudRepository<Authuser, Integer>{
     
 }

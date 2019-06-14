@@ -18,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,21 +30,21 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Okala
  */
 @Entity
-@Table(name = "auth_user")
+@Table(name = "authuser")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AuthUser.findAll", query = "SELECT a FROM AuthUser a")
-    , @NamedQuery(name = "AuthUser.findByEmpId", query = "SELECT a FROM AuthUser a WHERE a.empId = :empId")
-    , @NamedQuery(name = "AuthUser.findByIsdelete", query = "SELECT a FROM AuthUser a WHERE a.isdelete = :isdelete")
-    , @NamedQuery(name = "AuthUser.findByLastUpdate", query = "SELECT a FROM AuthUser a WHERE a.lastUpdate = :lastUpdate")})
-public class AuthUser implements Serializable {
+    @NamedQuery(name = "Authuser.findAll", query = "SELECT a FROM Authuser a")
+    , @NamedQuery(name = "Authuser.findById", query = "SELECT a FROM Authuser a WHERE a.id = :id")
+    , @NamedQuery(name = "Authuser.findByIsdelete", query = "SELECT a FROM Authuser a WHERE a.isdelete = :isdelete")
+    , @NamedQuery(name = "Authuser.findByLastUpdate", query = "SELECT a FROM Authuser a WHERE a.lastUpdate = :lastUpdate")})
+public class Authuser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "emp_id")
-    private Integer empId;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 5)
@@ -56,32 +55,32 @@ public class AuthUser implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "emp_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee employee;
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @JoinColumn(name = "empid", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Role roleId;
+    private Employee empid;
+    @JoinColumn(name = "roleid", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Role roleid;
 
-    public AuthUser() {
+    public Authuser() {
     }
 
-    public AuthUser(Integer empId) {
-        this.empId = empId;
+    public Authuser(Integer id) {
+        this.id = id;
     }
 
-    public AuthUser(Integer empId, String isdelete, Date lastUpdate) {
-        this.empId = empId;
+    public Authuser(Integer id, String isdelete, Date lastUpdate) {
+        this.id = id;
         this.isdelete = isdelete;
         this.lastUpdate = lastUpdate;
     }
 
-    public Integer getEmpId() {
-        return empId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEmpId(Integer empId) {
-        this.empId = empId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getIsdelete() {
@@ -100,37 +99,37 @@ public class AuthUser implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getEmpid() {
+        return empid;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmpid(Employee empid) {
+        this.empid = empid;
     }
 
-    public Role getRoleId() {
-        return roleId;
+    public Role getRoleid() {
+        return roleid;
     }
 
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
+    public void setRoleid(Role roleid) {
+        this.roleid = roleid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (empId != null ? empId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AuthUser)) {
+        if (!(object instanceof Authuser)) {
             return false;
         }
-        AuthUser other = (AuthUser) object;
-        if ((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId))) {
+        Authuser other = (Authuser) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -138,7 +137,7 @@ public class AuthUser implements Serializable {
 
     @Override
     public String toString() {
-        return "eval.eval.entities.AuthUser[ empId=" + empId + " ]";
+        return "eval.eval.entities.Authuser[ id=" + id + " ]";
     }
     
 }

@@ -9,8 +9,8 @@ public class EvalApplication {
 
     public static void main(String[] args) {
                 SpringApplication.run(EvalApplication.class, args);
-        //                System.out.println(new BCryptPasswordEncoder().encode("admin"));
-        //                System.out.println(new BCryptPasswordEncoder().encode("user"));
+//                        System.out.println(new BCryptPasswordEncoder().encode("admin"));
+//                        System.out.println(new BCryptPasswordEncoder().encode("user"));
         
 //        int length = 140;
 //        String AlpaNumericString = ".0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY";

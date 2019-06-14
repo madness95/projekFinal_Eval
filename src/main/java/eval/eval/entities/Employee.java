@@ -21,7 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,13 +39,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
     , @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id")
-    , @NamedQuery(name = "Employee.findByFirstName", query = "SELECT e FROM Employee e WHERE e.firstName = :firstName")
-    , @NamedQuery(name = "Employee.findByLastName", query = "SELECT e FROM Employee e WHERE e.lastName = :lastName")
+    , @NamedQuery(name = "Employee.findByFirstname", query = "SELECT e FROM Employee e WHERE e.firstname = :firstname")
+    , @NamedQuery(name = "Employee.findByLastname", query = "SELECT e FROM Employee e WHERE e.lastname = :lastname")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
     , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
-    , @NamedQuery(name = "Employee.findByPhoneNumber", query = "SELECT e FROM Employee e WHERE e.phoneNumber = :phoneNumber")
+    , @NamedQuery(name = "Employee.findByPhonenumber", query = "SELECT e FROM Employee e WHERE e.phonenumber = :phonenumber")
     , @NamedQuery(name = "Employee.findByBirthdate", query = "SELECT e FROM Employee e WHERE e.birthdate = :birthdate")
-    , @NamedQuery(name = "Employee.findByTrainer", query = "SELECT e FROM Employee e WHERE e.trainer = :trainer")
+    , @NamedQuery(name = "Employee.findByHiredate", query = "SELECT e FROM Employee e WHERE e.hiredate = :hiredate")
     , @NamedQuery(name = "Employee.findByIsdelete", query = "SELECT e FROM Employee e WHERE e.isdelete = :isdelete")
     , @NamedQuery(name = "Employee.findByLastUpdate", query = "SELECT e FROM Employee e WHERE e.lastUpdate = :lastUpdate")})
 public class Employee implements Serializable {
@@ -54,47 +53,56 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
+    @Basic(optional = true)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "first_name")
-    private String firstName;
-    @Size(max = 20)
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "firstname")
+    private String firstname;
+    @Basic(optional = true)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "lastname")
+    private String lastname;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
+    @Basic(optional = true)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
+    @Basic(optional = true)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "password")
     private String password;
-    @Size(max = 12)
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @Basic(optional = true)
+    @NotNull
+    @Size(min = 1, max = 12)
+    @Column(name = "phonenumber")
+    private String phonenumber;
+    @Basic(optional = true)
+    @NotNull
     @Column(name = "birthdate")
     @Temporal(TemporalType.DATE)
     private Date birthdate;
-    @Column(name = "trainer")
-    private Integer trainer;
-    @Basic(optional = false)
+    @Basic(optional = true)
+    @NotNull
+    @Column(name = "hiredate")
+    @Temporal(TemporalType.DATE)
+    private Date hiredate;
+    @Basic(optional = true)
     @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
-    @Basic(optional = false)
+    @Basic(optional = true)
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uploadby", fetch = FetchType.LAZY)
     private List<Assignment> assignmentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
     private List<GradeEmp> gradeEmpList;
@@ -102,19 +110,17 @@ public class Employee implements Serializable {
     private List<Exam> examList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
     private List<Task> taskList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empId", fetch = FetchType.LAZY)
-    private List<ForgetPassword> forgetPasswordList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private AuthUser authUser;
     @JoinColumn(name = "batchclass", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Batch batchclass;
-    @JoinColumn(name = "department", referencedColumnName = "id")
+    @JoinColumn(name = "departmentid", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Department department;
-    @JoinColumn(name = "job", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Job job;
+    private Department departmentid;
+    @JoinColumn(name = "jobid", referencedColumnName = "id")
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    private Job jobid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empid", fetch = FetchType.LAZY)
+    private List<Authuser> authuserList;
 
     public Employee() {
     }
@@ -123,11 +129,20 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(Integer id, String firstName, String email, String password, String isdelete, Date lastUpdate) {
+    public Employee(Integer id, String password) {
         this.id = id;
-        this.firstName = firstName;
+        this.password = password;
+    }
+
+    public Employee(Integer id, String firstname, String lastname, String email, String password, String phonenumber, Date birthdate, Date hiredate, String isdelete, Date lastUpdate) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.phonenumber = phonenumber;
+        this.birthdate = birthdate;
+        this.hiredate = hiredate;
         this.isdelete = isdelete;
         this.lastUpdate = lastUpdate;
     }
@@ -140,20 +155,20 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -172,12 +187,12 @@ public class Employee implements Serializable {
         this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public Date getBirthdate() {
@@ -188,12 +203,12 @@ public class Employee implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public Integer getTrainer() {
-        return trainer;
+    public Date getHiredate() {
+        return hiredate;
     }
 
-    public void setTrainer(Integer trainer) {
-        this.trainer = trainer;
+    public void setHiredate(Date hiredate) {
+        this.hiredate = hiredate;
     }
 
     public String getIsdelete() {
@@ -248,23 +263,6 @@ public class Employee implements Serializable {
         this.taskList = taskList;
     }
 
-    @XmlTransient
-    public List<ForgetPassword> getForgetPasswordList() {
-        return forgetPasswordList;
-    }
-
-    public void setForgetPasswordList(List<ForgetPassword> forgetPasswordList) {
-        this.forgetPasswordList = forgetPasswordList;
-    }
-
-    public AuthUser getAuthUser() {
-        return authUser;
-    }
-
-    public void setAuthUser(AuthUser authUser) {
-        this.authUser = authUser;
-    }
-
     public Batch getBatchclass() {
         return batchclass;
     }
@@ -273,20 +271,29 @@ public class Employee implements Serializable {
         this.batchclass = batchclass;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Department getDepartmentid() {
+        return departmentid;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartmentid(Department departmentid) {
+        this.departmentid = departmentid;
     }
 
-    public Job getJob() {
-        return job;
+    public Job getJobid() {
+        return jobid;
     }
 
-    public void setJob(Job job) {
-        this.job = job;
+    public void setJobid(Job jobid) {
+        this.jobid = jobid;
+    }
+
+    @XmlTransient
+    public List<Authuser> getAuthuserList() {
+        return authuserList;
+    }
+
+    public void setAuthuserList(List<Authuser> authuserList) {
+        this.authuserList = authuserList;
     }
 
     @Override

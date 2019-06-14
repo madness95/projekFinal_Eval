@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     private static final String SQL_ROLE
-            = "SELECT e.email as username, r.name as authority FROM employees e INNER JOIN auth_user u ON e.id=u.emp_id INNER JOIN role r ON u.role_id=r.id WHERE e.email= ?";
+            = "SELECT e.email as username, r.name as authority FROM employees e INNER JOIN authuser u ON e.id=u.empid INNER JOIN role r ON u.roleid=r.id WHERE e.email= ?";
 
     private static final String SQL_LOGIN
             = "SELECT email as username, password,'1' as active FROM employees WHERE isdelete='false' AND email= ?";

@@ -53,7 +53,7 @@ public class Job implements Serializable {
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "job", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobid", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
     public Job() {

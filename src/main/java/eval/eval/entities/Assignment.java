@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Assignment.findByInstruction", query = "SELECT a FROM Assignment a WHERE a.instruction = :instruction")
     , @NamedQuery(name = "Assignment.findByDeadline", query = "SELECT a FROM Assignment a WHERE a.deadline = :deadline")
     , @NamedQuery(name = "Assignment.findByDate", query = "SELECT a FROM Assignment a WHERE a.date = :date")
+    , @NamedQuery(name = "Assignment.findByFile", query = "SELECT a FROM Assignment a WHERE a.file = :file")
     , @NamedQuery(name = "Assignment.findByIsdelete", query = "SELECT a FROM Assignment a WHERE a.isdelete = :isdelete")
     , @NamedQuery(name = "Assignment.findByLastUpdate", query = "SELECT a FROM Assignment a WHERE a.lastUpdate = :lastUpdate")})
 public class Assignment implements Serializable {
@@ -66,6 +67,11 @@ public class Assignment implements Serializable {
     private Date date;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "file")
+    private String file;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
@@ -74,9 +80,9 @@ public class Assignment implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "employee", referencedColumnName = "id")
+    @JoinColumn(name = "uploadby", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee employee;
+    private Employee uploadby;
     @OneToMany(mappedBy = "assignment", fetch = FetchType.LAZY)
     private List<Task> taskList;
 
@@ -87,10 +93,11 @@ public class Assignment implements Serializable {
         this.id = id;
     }
 
-    public Assignment(Integer id, Date deadline, Date date, String isdelete, Date lastUpdate) {
+    public Assignment(Integer id, Date deadline, Date date, String file, String isdelete, Date lastUpdate) {
         this.id = id;
         this.deadline = deadline;
         this.date = date;
+        this.file = file;
         this.isdelete = isdelete;
         this.lastUpdate = lastUpdate;
     }
@@ -127,6 +134,14 @@ public class Assignment implements Serializable {
         this.date = date;
     }
 
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
     public String getIsdelete() {
         return isdelete;
     }
@@ -143,12 +158,12 @@ public class Assignment implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getUploadby() {
+        return uploadby;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setUploadby(Employee uploadby) {
+        this.uploadby = uploadby;
     }
 
     @XmlTransient

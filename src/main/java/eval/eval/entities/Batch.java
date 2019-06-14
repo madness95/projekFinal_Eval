@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Batch.findByPeriod", query = "SELECT b FROM Batch b WHERE b.period = :period")
     , @NamedQuery(name = "Batch.findByTrainer", query = "SELECT b FROM Batch b WHERE b.trainer = :trainer")
     , @NamedQuery(name = "Batch.findByIsdelete", query = "SELECT b FROM Batch b WHERE b.isdelete = :isdelete")
-    , @NamedQuery(name = "Batch.findByLastUpdate", query = "SELECT b FROM Batch b WHERE b.lastUpdate = :lastUpdate")})
+    , @NamedQuery(name = "Batch.findByLastupdate", query = "SELECT b FROM Batch b WHERE b.lastupdate = :lastupdate")})
 public class Batch implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,12 +73,12 @@ public class Batch implements Serializable {
     private String isdelete;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "last_update")
+    @Column(name = "lastupdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdate;
-    @JoinColumn(name = "class", referencedColumnName = "id")
+    private Date lastupdate;
+    @JoinColumn(name = "classid", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Class class1;
+    private Class classid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batchclass", fetch = FetchType.LAZY)
     private List<Exam> examList;
     @OneToMany(mappedBy = "batchclass", fetch = FetchType.LAZY)
@@ -91,13 +91,13 @@ public class Batch implements Serializable {
         this.id = id;
     }
 
-    public Batch(Integer id, String batch, Date period, int trainer, String isdelete, Date lastUpdate) {
+    public Batch(Integer id, String batch, Date period, int trainer, String isdelete, Date lastupdate) {
         this.id = id;
         this.batch = batch;
         this.period = period;
         this.trainer = trainer;
         this.isdelete = isdelete;
-        this.lastUpdate = lastUpdate;
+        this.lastupdate = lastupdate;
     }
 
     public Integer getId() {
@@ -140,20 +140,20 @@ public class Batch implements Serializable {
         this.isdelete = isdelete;
     }
 
-    public Date getLastUpdate() {
-        return lastUpdate;
+    public Date getLastupdate() {
+        return lastupdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setLastupdate(Date lastupdate) {
+        this.lastupdate = lastupdate;
     }
 
-    public Class getClass1() {
-        return class1;
+    public Class getClassid() {
+        return classid;
     }
 
-    public void setClass1(Class class1) {
-        this.class1 = class1;
+    public void setClassid(Class classid) {
+        this.classid = classid;
     }
 
     @XmlTransient

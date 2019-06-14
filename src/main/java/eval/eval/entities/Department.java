@@ -53,7 +53,7 @@ public class Department implements Serializable {
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
-    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "departmentid", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
     public Department() {

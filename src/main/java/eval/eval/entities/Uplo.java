@@ -6,37 +6,31 @@
 package eval.eval.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Okala
  */
 @Entity
-@Table(name = "class")
+@Table(name = "uplo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Class.findAll", query = "SELECT c FROM Class c")
-    , @NamedQuery(name = "Class.findById", query = "SELECT c FROM Class c WHERE c.id = :id")
-    , @NamedQuery(name = "Class.findByName", query = "SELECT c FROM Class c WHERE c.name = :name")
-    , @NamedQuery(name = "Class.findByIsdelete", query = "SELECT c FROM Class c WHERE c.isdelete = :isdelete")})
-public class Class implements Serializable {
+    @NamedQuery(name = "Uplo.findAll", query = "SELECT u FROM Uplo u")
+    , @NamedQuery(name = "Uplo.findById", query = "SELECT u FROM Uplo u WHERE u.id = :id")
+    , @NamedQuery(name = "Uplo.findByFile", query = "SELECT u FROM Uplo u WHERE u.file = :file")})
+public class Uplo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,28 +40,20 @@ public class Class implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "name")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 5)
-    @Column(name = "isdelete")
-    private String isdelete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classid", fetch = FetchType.LAZY)
-    private List<Batch> batchList;
+    @Size(min = 1, max = 80)
+    @Column(name = "file")
+    private String file;
 
-    public Class() {
+    public Uplo() {
     }
 
-    public Class(Integer id) {
+    public Uplo(Integer id) {
         this.id = id;
     }
 
-    public Class(Integer id, String name, String isdelete) {
+    public Uplo(Integer id, String file) {
         this.id = id;
-        this.name = name;
-        this.isdelete = isdelete;
+        this.file = file;
     }
 
     public Integer getId() {
@@ -78,29 +64,12 @@ public class Class implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFile() {
+        return file;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIsdelete() {
-        return isdelete;
-    }
-
-    public void setIsdelete(String isdelete) {
-        this.isdelete = isdelete;
-    }
-
-    @XmlTransient
-    public List<Batch> getBatchList() {
-        return batchList;
-    }
-
-    public void setBatchList(List<Batch> batchList) {
-        this.batchList = batchList;
+    public void setFile(String file) {
+        this.file = file;
     }
 
     @Override
@@ -113,10 +82,10 @@ public class Class implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Class)) {
+        if (!(object instanceof Uplo)) {
             return false;
         }
-        Class other = (Class) object;
+        Uplo other = (Uplo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -125,7 +94,7 @@ public class Class implements Serializable {
 
     @Override
     public String toString() {
-        return "eval.eval.entities.Class[ id=" + id + " ]";
+        return "eval.eval.entities.Uplo[ id=" + id + " ]";
     }
     
 }
