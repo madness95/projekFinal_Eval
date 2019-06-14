@@ -6,6 +6,8 @@
 package eval.eval.repositories;
 
 import eval.eval.entities.GradeEmp;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface GradeEmpRepositories extends CrudRepository<GradeEmp, Integer>{
-    
+    @Query(value = "SELECT * FROM `grade_emp` WHERE `isdelete` = 'false'", nativeQuery = true)
+    List<GradeEmp> getAll();
 }

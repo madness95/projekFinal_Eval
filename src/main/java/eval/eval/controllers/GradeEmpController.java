@@ -5,19 +5,21 @@
  */
 package eval.eval.controllers;
 
-import eval.eval.entities.Role;
-import eval.eval.repositories.RoleRepositories;
-import eval.eval.services.RoleServices;
+import eval.eval.entities.GradeEmp;
+import eval.eval.repositories.EmployeeRepositories;
+import eval.eval.repositories.GradeEmpRepositories;
+import eval.eval.repositories.GradeRepositories;
+import eval.eval.services.EmployeeServices;
+import eval.eval.services.GradeEmpServices;
+import eval.eval.services.GradeServices;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -25,17 +27,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/admin")
-public class RoleController {
+public class GradeEmpController {
 
     @Autowired
-    private RoleRepositories roleRepositories;
+    private GradeEmpRepositories gradeEmpRepositories;
     @Autowired
-    private RoleServices roleServices;
+    private GradeEmpServices gradeEmpServices;
+    @Autowired
+    private GradeRepositories gradeRepositories;
+    @Autowired
+    private GradeServices gradeServices;
+    @Autowired
+    private EmployeeRepositories employeeRepositories;
+    @Autowired
+    private EmployeeServices employeeServices;
 
-    @GetMapping("/role/all")
+    @GetMapping("/gradeEmp/all")
     public String index(Model model) {
-        model.addAttribute("dataRole", roleRepositories.getAll());
-        return "indexrole";
+        model.addAttribute("dataGradeEmp", gradeEmpServices.getAll());
+        model.addAttribute("dataEmp", employeeServices.getAll());
+        model.addAttribute("dataGrade", gradeServices.getAll());
+        return "indexGradeEmp";
     }
 
 //    @PostMapping("/addactor")
@@ -58,29 +70,29 @@ public class RoleController {
 //        model.addAttribute("actor", actor);
 //        return "updateActor";
 //    }
-    @PostMapping("/RoleController/addDataRole")
-    public String addData(Role role) {
-        role.setId(0);
-        role.setIsdelete("false");
-        roleRepositories.save(role);
+    @PostMapping("/GradeEmpController/addData")
+    public String addData(GradeEmp gradeEmp) {
+        gradeEmp.setId(0);
+        gradeEmp.setIsdelete("false");
+        gradeEmpRepositories.save(gradeEmp);
 //        model.addAttribute("dataActor", filmActorService.findAllActor());
 //        return "index";
-        return "redirect:/admin/role/all";
+        return "redirect:/admin/gradeEmp/all";
     }
 
 //    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    @PostMapping("/RoleController/updateRole/{id}")
-    public String upadateData(@PathVariable("id") String id, @Valid Role role) {
-        role.setIsdelete("false");
-        roleRepositories.save(role);
-        return "redirect:/admin/role/all";
+    @PostMapping("/GradeEmpController/updateGrade/{id}")
+    public String upadateData(@PathVariable("id") String id, @Valid GradeEmp gradeEmp) {
+        gradeEmp.setIsdelete("false");
+        gradeEmpRepositories.save(gradeEmp);
+        return "redirect:/admin/gradeEmp/all";
     }
 
-    @GetMapping("/RoleController/softdelete/{id}")
-    public String softDelete(@PathVariable("id") String id, Role role) {
-        role.setIsdelete("true");
-        roleRepositories.save(role);
-        return "redirect:/admin/role/all";
+    @GetMapping("/GradeEmpController/softdelete/{id}")
+    public String softDelete(@PathVariable("id") String id, GradeEmp gradeEmp) {
+        gradeEmp.setIsdelete("true");
+        gradeEmpRepositories.save(gradeEmp);
+        return "redirect:/admin/gradeEmp/all";
     }
 //    @GetMapping("/delete/{id}")
 //    public String deleteActor(@PathVariable("id") Short id, Model model) {

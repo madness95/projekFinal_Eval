@@ -45,11 +45,33 @@
             <div class="l-sidebar__content">
                 <nav class="c-menu js-menu">
                     <ul class="u-list">
-                        <li class="c-menu__item is-active" data-toggle="tooltip" title="Proposals">
+<!--                        <li class="c-menu__item is-active" data-toggle="tooltip" title="Proposals">
                             <div class="c-menu__item__inner"><i class="fa fa-file-text-o"></i>
                                 <div class="c-menu-item__title"><span>Proposals</span></div>
                             </div>
+                        </li>-->    
+                        <a th:href="@{/admin/employee/all}">
+                        <li class="c-menu__item is-active" data-toggle="tooltip" title="Employee">
+                            <div class="c-menu__item__inner"><i class="fa fa-user"></i>
+                                <div class="c-menu-item__title"><span>Employee</span></div>
+                            </div>
                         </li>
+                        </a>
+                        <a th:href="@{/admin/batch/all}">
+                        <li class="c-menu__item is-active" data-toggle="tooltip" title="Batch">
+                            <div class="c-menu__item__inner"><i class="fa fa-group"></i>
+                                <div class="c-menu-item__title"><span>Batch</span></div>
+                            </div>
+                        </li>
+                        </a>
+                        <a th:href="@{/admin/employee/all}">
+                        <li class="c-menu__item is-active" data-toggle="tooltip" title="Proposals">
+                            <div class="c-menu__item__inner"><i class="fa fa-user"></i>
+                                <div class="c-menu-item__title"><span>Employee</span></div>
+                            </div>
+                        </li>
+                        </a>
+<!--                       
                         <li class="c-menu__item has-submenu" data-toggle="tooltip" title="History">
                             <div class="c-menu__item__inner"><i class="fa fa-history"></i>
                                 <div class="c-menu-item__title"><span>History</span></div>
@@ -64,7 +86,7 @@
                             <div class="c-menu__item__inner"><i class="fa fa-cogs"></i>
                                 <div class="c-menu-item__title"><span>Settings</span></div>
                             </div>
-                        </li>
+                        </li>-->
                     </ul>
                 </nav>
             </div>

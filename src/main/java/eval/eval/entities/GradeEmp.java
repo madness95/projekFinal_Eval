@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -46,13 +47,14 @@ public class GradeEmp implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "last_update")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
     @JoinColumn(name = "grade", referencedColumnName = "id")

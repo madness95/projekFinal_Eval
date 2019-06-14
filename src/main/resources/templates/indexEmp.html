@@ -79,6 +79,10 @@
                                     <span data-feather="file"></span>
                                     Assignment
                                 </a>
+                                <a class="nav-link " th:href="@{/admin/gradeEmp/all}">
+                                    <span data-feather="file"></span>
+                                    Grade Employees
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -87,7 +91,7 @@
                 <main role="main" class="col-md-50 ml-sm-auto col-lg-10 px-4">
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Data</h1>
+                        <h1 class="h2">Data Employees</h1>
                         <!-- <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group mr-2">
                   <button class="btn btn-sm btn-outline-secondary">Share</button>
@@ -108,8 +112,8 @@
                                 <th>Action</th>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>Name</th>
+                                <!--<th>Last Name</th>-->
                                 <th>Email</th>
                                 <th hidden="">Password</th>
                                 <th>Phone Number</th>
@@ -131,9 +135,9 @@
                                 </td>
                                 <td></td>
                                 <td id="id" th:text="${data.id}"></td>
-                                <td id="firstname" th:text="${data.firstname}"></td>                                
+                                <td id="firstname" th:text="${data.firstname + ' ' + data.lastname}"></td>                                
                                 <!--<td id="_ClassName" th:text="${data.classid.name}"></td>-->                                
-                                <td id="lastname" th:text="${data.lastname}"></td>
+                                <!--<td id="lastname" th:text="${data.lastname}"></td>-->
                                 <td id="email" th:text="${data.email}"></td>                                
                                 <td id="password" th:text="${data.password}" hidden=""></td>
                                 <td id="phonenumber" th:text="${data.phonenumber}"></td>
@@ -460,16 +464,16 @@
         <script>
             feather.replace()
         </script>     
-
+        
         <script>
             $(document).ready(function () {
                 var t = $('#example').DataTable({
                     "columnDefs": [{
                             "searchable": false,
                             "orderable": false,
-                            "targets": 0
+                            "targets": 0                             
                         }],
-                    order: [[0, "desc"]]
+                   order: [ [0, "asc"] ]
                 });
 
                 t.on('order.dt search.dt', function () {

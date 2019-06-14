@@ -5,9 +5,9 @@
  */
 package eval.eval.services;
 
-import eval.eval.repositories.EmployeeRepositories;
+import eval.eval.entities.GradeEmp;
 import eval.eval.repositories.GradeEmpRepositories;
-import eval.eval.repositories.GradeRepositories;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +20,8 @@ public class GradeEmpServices {
     @Autowired
     private GradeEmpRepositories gradeEmpRepositories;
     
-    @Autowired
-    private GradeRepositories gradeRepositories;
-    
-    @Autowired
-    private EmployeeRepositories employeeRepositories;
+   public List<GradeEmp> getAll() {
+        return gradeEmpRepositories.getAll();
+    }
     
 }
