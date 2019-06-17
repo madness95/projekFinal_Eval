@@ -5,6 +5,9 @@
  */
 package eval.eval.config;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
@@ -60,7 +63,7 @@ public class EmailConfig {
             msg.setSubject(subject);
             msg.setContent(message, "text/html");
             msg.setSentDate(new Date());
-
+            
             // Send the actual HTML message, as big as you like
             //message.setContent(readTxt(filePath),"text/html");
             Transport.send(msg);
@@ -69,6 +72,42 @@ public class EmailConfig {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+//    public boolean sendEmail(String email, String subject, String message, boolean useTemplate) {
+//        try {
+//            Message msg = new MimeMessage(getSession());
+//            msg.setFrom(new InternetAddress(getUsername(), "EVAL"));
+//
+//            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+//            msg.setSubject(subject);
+//            if(useTemplate){
+//            String filePath = "F:/eval/src/main/resources/static/dist/template/template.txt";
+//            msg.setContent(readTxt(filePath),"text/html");
+//            } else {
+//            msg.setContent(message, "text/html");
+//            }
+//            msg.setSentDate(new Date());
+            
+            // Send the actual HTML message, as big as you like
+            // Send the actual HTML message, as big as you like
+            //message.setContent(readTxt(filePath),"text/html");
+//            Transport.send(msg);
+//            return true;
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return false;
+//    }
+    
+    public String readTxt(String filePath) {
+        String content = "";
+        try {
+            content = new String(Files.readAllBytes(Paths.get(filePath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
     }
 
     public String createToken(int length) {

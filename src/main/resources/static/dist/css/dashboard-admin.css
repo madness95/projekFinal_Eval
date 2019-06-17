@@ -385,6 +385,18 @@ h3 {
   justify-content: center;
   background-color: #051835;
 }
+
+.l-sidebar .logo .logo__img {
+    margin: 0 auto;
+}
+
+.l-sidebar .logo .logo__img img {
+  height: 30px;
+  background: #fff;
+  padding: 5px;
+  border-radius: 10px;    
+}
+
 .l-sidebar .logo .logo__txt {
   font-size: 26px;
   line-height: 1;
@@ -395,6 +407,8 @@ h3 {
 .l-sidebar__content {
   height: 100%;
   position: relative;
+  overflow-y : scroll;
+  padding-bottom: 60px;
 }
 .sidebar-is-expanded .l-sidebar {
   width: 220px;
@@ -567,4 +581,27 @@ a.list-group-item {
 }
 a.list-group-item.active small {
     color:#fff;
+}
+
+/*scroll custom*/
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
 }

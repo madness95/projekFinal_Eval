@@ -26,8 +26,8 @@ public interface ValidationRepositories extends CrudRepository<Validation, Integ
     @Query(value = "SELECT * FROM employees WHERE isdelete='false' AND email= :email", nativeQuery = true)
     Employee getIdByEmail(@Param("email") String email);
     
-    @Modifying
     @Transactional
+    @Modifying
     @Query(value = "UPDATE employees SET `password` = :password WHERE email= :email", nativeQuery = true)
     void updatePassword(@Param("email") String email,@Param("password") String password);
 }
