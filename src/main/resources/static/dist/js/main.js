@@ -131,12 +131,14 @@
 })(jQuery);
 
 
-function reset() {
+
+function reset(type, title) {
     Swal.fire({
-        position: 'top-end',
-        type: 'success',
-        title: 'Your work has been saved',
+//        position: 'top-end',
+        type: type,
+        title: title,
         showConfirmButton: false,
-        timer: 2000
+        timer: 2500
     })
 }
+

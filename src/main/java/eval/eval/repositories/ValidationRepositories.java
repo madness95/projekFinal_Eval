@@ -20,14 +20,19 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ValidationRepositories extends CrudRepository<Validation, Integer>{
     
-    @Query(value = "SELECT e.email FROM validation v INNER JOIN employees e ON v.emp_id=e.id WHERE isactive='false' AND v.token= :token", nativeQuery = true)
+    @Query(value = "SELECT e.email FROM validation v INNER JOIN employees e ON v.emp_id=e.id WHERE isactive='false' AND v.token= :token LIMIT 1", nativeQuery = true)
     List getEmailByToken(@Param("token") String token);
     
-    @Query(value = "SELECT * FROM employees WHERE isdelete='false' AND email= :email", nativeQuery = true)
+    @Query(value = "SELECT * FROM employees WHERE `isdelete`='false' AND email= :email", nativeQuery = true)
     Employee getIdByEmail(@Param("email") String email);
     
     @Transactional
     @Modifying
     @Query(value = "UPDATE employees SET `password` = :password WHERE email= :email", nativeQuery = true)
     void updatePassword(@Param("email") String email,@Param("password") String password);
+    
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE validation SET `isactive` = :isactive WHERE `token` = :token", nativeQuery = true)
+    void updateToken(@Param("token") String token,@Param("isactive") String isactive);
 }

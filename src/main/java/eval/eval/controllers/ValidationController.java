@@ -51,7 +51,7 @@ public class ValidationController {
         Employee e = validationRepositories.getIdByEmail(email);
 
         String subject = "Forget Password";
-        String message = templateEmail(e.getLastname(), token);
+        String message = templateEmail(e.getFirstname(), token);
 
         if (emailConfig.sendEmail(email, subject, message)) {
             result = "forget/password/success";
@@ -64,9 +64,14 @@ public class ValidationController {
 
     @GetMapping("/password/reset")
     public String sendResetPassword(@RequestParam("token") String token, Model model) {
+        String result = "forget/password/reset-password";
+        if(validationRepositories.getEmailByToken(token).isEmpty()){
+            result = "redirect:/forget/password/reset/expired";
+        }
         model.addAttribute("token", token);
-        return "forget/password/reset-password";
+        return result;
     }
+    
 
     @PostMapping("/password/reset")
     public String sendResetPassword(String token, String newpass, String repass, Model model) {
@@ -82,12 +87,19 @@ public class ValidationController {
             } else {
                 email = validationRepositories.getEmailByToken(token).get(0).toString();
                 validationRepositories.updatePassword(email, new BCryptPasswordEncoder().encode(newpass));
+                validationRepositories.updateToken(token, "true");
                 result = "redirect:/?email="+email+"&success=reset";
             }
         } else {
             error = "different";
             result = "redirect:/forget/password/reset?error="+error+"&token="+ token;
         }
+        return result;
+    }
+    
+    @GetMapping("/password/reset/expired")
+    public String getExpiredToken() {
+        String result = "forget/password/reset-expired-token";
         return result;
     }
 

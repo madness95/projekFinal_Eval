@@ -53,51 +53,51 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = true)
+    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "firstname")
     private String firstname;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "lastname")
     private String lastname;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "email")
     private String email;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "password")
     private String password;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 12)
     @Column(name = "phonenumber")
     private String phonenumber;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Column(name = "birthdate")
     @Temporal(TemporalType.DATE)
     private Date birthdate;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Column(name = "hiredate")
     @Temporal(TemporalType.DATE)
     private Date hiredate;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "isdelete")
     private String isdelete;
-    @Basic(optional = true)
+    @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
@@ -117,7 +117,7 @@ public class Employee implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Department departmentid;
     @JoinColumn(name = "jobid", referencedColumnName = "id")
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Job jobid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empid", fetch = FetchType.LAZY)
     private List<Authuser> authuserList;

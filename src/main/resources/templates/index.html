@@ -7,8 +7,8 @@
     </head>
 
     <body>
-    <!--<body th:unless="${param.success}">-->
-    <div id="s-alert"></div>
+        <!--<body th:unless="${param.success}">-->
+        <div id="s-alert"></div>
         <div layout:fragment="content">
 
             <!--==========================
@@ -36,8 +36,8 @@
                                         <label for="email">Email address</label>
                                         <!--                  <input th:if="$param.reset" th:text="${param.email[0]}" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
                                                           <input th:unless="$param.reset" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">-->
-                                        <input th:if="${param.reset}" th:value="${param.email[0]}" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                                        <input th:unless="${param.reset}" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                                        <input th:value="${param.email[0]}" th:if="${param.success}" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                                        <input th:unless="${param.success}" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
                                         <!--                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
                                     </div>
                                     <div class="form-group">
@@ -191,7 +191,12 @@
             </footer><!-- #footer -->
 
         </div>
- 
-
+        <div layout:fragment="footer">
+            <div th:if="${param.success}">
+                <div th:switch="${param.success[0]}">
+                    <script th:case="reset">$(document).ready(reset('success', 'Reset password has been successfully!'));</script>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
