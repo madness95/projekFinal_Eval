@@ -1,0 +1,21 @@
+<div style="background:#f3f3f3; border:1px solid #cccccc; padding:40px">
+<p style="text-align:center"><span style="font-size:14px"><a href="http://localhost:8082/login" target="_blank"><img alt="" src="" style="height:80px; width:200px" /></a></span></p>
+<h1><strong>Pemulihan Kata Sandi</strong></h1>
+<p>Hai Okalanang,</p>
+<p>Kami menerima permintaan untuk mengatur ulang kata sandi Upnormal Bootcamp.</p>
+<p>Masukkan kode pemulihan kata sandi berikut ini :</p>
+<div style="background:#eee; border:1px solid #cccccc; padding:5px 10px;font-size:40px">
+<center><h1><strong>123456</strong></h1></center>
+</div>
+<p>Atau dengan klik tombol berikut ini :</p>
+<center><a href="http://spongevil.tech/login" target="_blank"><h1 style="background:linear-gradient(#ff9900, #ffaf00); border-radius:5px; color:#ffffff; display:inline-block; padding:8px 20px"><strong>Ubah Kata Sandi</strong></h1></a></center>
+<p>Atau dengan link berikut :</p>
+<a href="http://spongevil.tech/login" target="_blank"><strong>http://spongevil.tech/login</strong></a>
+<p>&nbsp;</p>
+<p>Dimohon untuk menjaga kerahasiaan kata sandi anda.</p>
+<p>&nbsp;</p>
+<p>Terimakasih atas perhatiannya,</p>
+<p><strong>Upnormal Bootcamp</strong></p>
+<p>&nbsp;</p>
+<p><strong>nb :&nbsp;</strong>apabila terjadi suatu kesalahan dimohon untuk menghubungi admin</p>
+</div>
